@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 17016670}
   - component: {fileID: 17016669}
   - component: {fileID: 17016668}
-  m_Layer: 2
+  m_Layer: 11
   m_Name: Test Enemy (6)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -301,6 +301,7 @@ GameObject:
   - component: {fileID: 32101592}
   - component: {fileID: 32101593}
   - component: {fileID: 32101591}
+  - component: {fileID: 32101594}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -485,6 +486,23 @@ MonoBehaviour:
   heightChangeTime: 0.1
   slidingCenter: {x: 0, y: -0.5, z: 0}
   colliderSlidingHeight: 1
+--- !u!114 &32101594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 32101582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f1bbed9b5dc3d445a599cdb28913899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponArray:
+  - {fileID: 1196482105}
+  - {fileID: 198009541}
+  shootButton: 323
+  recallKey: 114
 --- !u!1 &48409697
 GameObject:
   m_ObjectHideFlags: 0
@@ -1444,6 +1462,7 @@ Transform:
   - {fileID: 1127039442}
   - {fileID: 571817176}
   - {fileID: 1688848632}
+  - {fileID: 405165503}
   m_Father: {fileID: 1615113975}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
@@ -1472,7 +1491,7 @@ MonoBehaviour:
   infiniteAmmo: 1
   ignore:
     serializedVersion: 2
-    m_Bits: 1280
+    m_Bits: 3328
   firedProjectiles: []
 --- !u!1 &235776096
 GameObject:
@@ -1965,6 +1984,89 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!1 &405165502
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 405165503}
+  - component: {fileID: 405165506}
+  - component: {fileID: 405165505}
+  m_Layer: 7
+  m_Name: Sphere
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &405165503
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405165502}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 198009539}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &405165505
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405165502}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: bb8dc7eadc642444799e61eac5b9ce48, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &405165506
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405165502}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &406564343
 GameObject:
   m_ObjectHideFlags: 0
@@ -2659,7 +2761,7 @@ GameObject:
   - component: {fileID: 546217920}
   - component: {fileID: 546217919}
   - component: {fileID: 546217918}
-  m_Layer: 2
+  m_Layer: 11
   m_Name: Test Enemy (5)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -2724,7 +2826,7 @@ GameObject:
   - component: {fileID: 562363815}
   - component: {fileID: 562363814}
   - component: {fileID: 562363813}
-  m_Layer: 2
+  m_Layer: 11
   m_Name: Test Enemy (7)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -5483,7 +5585,7 @@ MonoBehaviour:
   infiniteAmmo: 1
   ignore:
     serializedVersion: 2
-    m_Bits: 1280
+    m_Bits: 3328
   firedProjectiles: []
 --- !u!1 &1197804759
 GameObject:
@@ -6018,7 +6120,7 @@ GameObject:
   - component: {fileID: 1326856075}
   - component: {fileID: 1326856074}
   - component: {fileID: 1326856073}
-  m_Layer: 2
+  m_Layer: 11
   m_Name: Test Enemy (2)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -8440,7 +8542,7 @@ GameObject:
   - component: {fileID: 1749259303}
   - component: {fileID: 1749259302}
   - component: {fileID: 1749259301}
-  m_Layer: 2
+  m_Layer: 11
   m_Name: Test Enemy (4)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -8809,7 +8911,7 @@ GameObject:
   - component: {fileID: 1850671171}
   - component: {fileID: 1850671170}
   - component: {fileID: 1850671169}
-  m_Layer: 2
+  m_Layer: 11
   m_Name: Test Enemy (3)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -8874,7 +8976,7 @@ GameObject:
   - component: {fileID: 1851154155}
   - component: {fileID: 1851154154}
   - component: {fileID: 1851154153}
-  m_Layer: 2
+  m_Layer: 11
   m_Name: Test Enemy (1)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -9745,7 +9847,7 @@ GameObject:
   - component: {fileID: 2102650971}
   - component: {fileID: 2102650972}
   - component: {fileID: 2102650973}
-  m_Layer: 2
+  m_Layer: 11
   m_Name: Test Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}

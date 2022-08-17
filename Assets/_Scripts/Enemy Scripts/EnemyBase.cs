@@ -20,6 +20,7 @@ public class EnemyBase : MonoBehaviour, IDamageable
 
     public virtual void TakeDamage(float damage)
     {
+        Debug.Log("Took " + damage + " damage");
         currentHealth -= damage;
 
         if(currentHealth <= 0)

@@ -204,9 +204,14 @@ MonoBehaviour:
   ID: 1
   returnSpeed: 35
   recallDamage: 20
-  sawRadius: 7
+  sawRadius: 5
   tickTime: 0.1
+  trackSpeed: 10
+  enemyCheckRange: 20
   recallTrailColor: {r: 1, g: 0, b: 0, a: 1}
+  whatIsHurtBox:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!96 &-3266152748125072346
 TrailRenderer:
   serializedVersion: 2

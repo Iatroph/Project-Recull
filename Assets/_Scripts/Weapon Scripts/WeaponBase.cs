@@ -45,14 +45,30 @@ public class WeaponBase : MonoBehaviour
 
         //MOVE BELOW CODE TO A PLAYER WEAPON MANAGER SCRIPT
 
-        if (Input.GetMouseButton(0) && (currentAmmo > 0 || infiniteAmmo) && canShoot == true)
+        //if (Input.GetMouseButton(0) && (currentAmmo > 0 || infiniteAmmo) && canShoot == true)
+        //{
+        //    Shoot();
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
+        //    Recall();
+        //}
+    }
+
+    public virtual void AddAmmo()
+    {
+        if(currentAmmo < magCapacity)
+        {
+            currentAmmo++;
+        }
+    }
+
+    public void ShootFromInput()
+    {
+        if((currentAmmo > 0 || infiniteAmmo) && canShoot)
         {
             Shoot();
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Recall();
         }
     }
 
