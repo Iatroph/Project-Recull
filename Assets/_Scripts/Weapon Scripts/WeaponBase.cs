@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class WeaponBase : MonoBehaviour
 {
-    bool canShoot;
+    protected bool canShoot;
     float shootTimer;
-    private float currentAmmo;
+    [HideInInspector]
+    public float currentAmmo;
     Vector3 projectileSpawnPoint;
 
     [Header("Weapon Info")]
@@ -64,7 +65,7 @@ public class WeaponBase : MonoBehaviour
         }
     }
 
-    public void ShootFromInput()
+    public virtual void ShootFromInput()
     {
         if((currentAmmo > 0 || infiniteAmmo) && canShoot)
         {

@@ -9,6 +9,7 @@ public class ProjectileBase : MonoBehaviour //CREATE BASE CLASSES FOR ALL BULLET
     private GameObject Player;
     protected Rigidbody rb;
 
+    protected bool hasReturned = false;
     protected bool isReturning = false;
     protected bool abilityTriggered = false;
     private float distance;
@@ -57,13 +58,17 @@ public class ProjectileBase : MonoBehaviour //CREATE BASE CLASSES FOR ALL BULLET
     {
         if (other.gameObject.CompareTag("Player") && isReturning)
         {
+            other.gameObject.GetComponentInParent<PlayerWeaponManager>().ReloadAmmo(ID);
+            hasReturned = true;
             Destroy(gameObject);
         }
     }
     public void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && isReturning)
+        if (other.gameObject.CompareTag("Player") && isReturning && !hasReturned)
         {
+            other.gameObject.GetComponentInParent<PlayerWeaponManager>().ReloadAmmo(ID);
+            hasReturned = true;
             Destroy(gameObject);
         }
     }

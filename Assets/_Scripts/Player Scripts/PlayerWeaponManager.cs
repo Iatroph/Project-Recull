@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerWeaponManager : MonoBehaviour
 {
@@ -8,9 +9,13 @@ public class PlayerWeaponManager : MonoBehaviour
     private WeaponBase currentWeapon;
     private int currentWeaponIndex;
 
+    [Header("UI")]
+    public TMP_Text ammoText;
+
     [Header("Input")]
     public KeyCode shootButton = KeyCode.Mouse0;
     public KeyCode recallKey = KeyCode.R;
+
 
     // Start is called before the first frame update
     void Start()
@@ -18,13 +23,13 @@ public class PlayerWeaponManager : MonoBehaviour
         currentWeapon = weaponArray[0];
         currentWeaponIndex = 0;
 
-
     }
 
     // Update is called once per frame
     void Update()
     {
         InputManager();
+        UpdateAmmo();
 
         if (Input.GetAxis("Mouse ScrollWheel") > 0) // forward
         {
@@ -65,6 +70,25 @@ public class PlayerWeaponManager : MonoBehaviour
         if (Input.GetKeyDown(recallKey))
         {
             currentWeapon.Recall();
+        }
+    }
+
+    public void UpdateAmmo()
+    {
+        if(ammoText != null && currentWeapon != null)
+        {
+            ammoText.text = currentWeapon.currentAmmo + "/" + currentWeapon.magCapacity;
+        }
+    }
+
+    public void ReloadAmmo(int ammoID)
+    {
+        foreach(WeaponBase weapon in weaponArray)
+        {
+            if(ammoID == weapon.weaponID)
+            {
+                weapon.AddAmmo();
+            }
         }
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement instance;
+
     //Horizontal Input (A & D)
     float horizontalInput;
     //Vertical Input (W & S)
@@ -228,6 +230,8 @@ public class PlayerMovement : MonoBehaviour
         storedGravity = gravity;
         canChangeState = true;
         wallJumpCount = maxWallJumps;
+
+        instance = this;
     }
 
     private void Update() //ALL INPUTS IN UPDATE
