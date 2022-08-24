@@ -7,6 +7,7 @@ public class BulletTracer : MonoBehaviour
 {
     LineRenderer lr;
     public float startWidth;
+    public float shrinkTime;
 
     private void Awake()
     {
@@ -18,9 +19,9 @@ public class BulletTracer : MonoBehaviour
     {
         if (lr != null)
         {
-            DOTween.To(TweenLineRendererWidth, startWidth, 0, .1f);
+            DOTween.To(TweenLineRendererWidth, startWidth, 0, shrinkTime);
         }
-        Destroy(gameObject, .15f);
+        Destroy(gameObject, shrinkTime + .05f);
     }
 
     private void OnDestroy()

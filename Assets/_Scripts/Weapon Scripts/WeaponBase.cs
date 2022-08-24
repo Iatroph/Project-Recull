@@ -5,10 +5,10 @@ using UnityEngine;
 public class WeaponBase : MonoBehaviour
 {
     protected bool canShoot;
-    float shootTimer;
+    protected float shootTimer;
     [HideInInspector]
     public float currentAmmo;
-    Vector3 projectileSpawnPoint;
+    protected Vector3 projectileSpawnPoint;
 
     [Header("Weapon Info")]
     public string weaponName;

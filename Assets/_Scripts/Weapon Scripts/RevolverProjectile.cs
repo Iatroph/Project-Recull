@@ -6,10 +6,14 @@ public class RevolverProjectile : ProjectileBase
 {
     float delayTime;
     private TrailRenderer tr;
+    Transform markedEnemy = null;
+
 
     [Header("References")]
     public GameObject bullerTracer;
-    
+    public GameObject bulletImpactParticle;
+
+
     [Header("Recall Parameters")]
     public float upForce;
     public float recallRange;
@@ -40,6 +44,12 @@ public class RevolverProjectile : ProjectileBase
     new void Update()
     {
         base.Update();
+
+        if (markedEnemy != null)
+        {
+            transform.LookAt(markedEnemy.position);
+            transform.Rotate(90, 0, 0);
+        }
     }
 
     public override void ActivateRecallAbility()
@@ -81,7 +91,7 @@ public class RevolverProjectile : ProjectileBase
         yield return new WaitForSeconds(holdTime);
 
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, recallRange, whatIsHurtBox);
-        Transform markedEnemy = null;
+        //Transform markedEnemy = null;
 
         List<GameObject> weakPoints = new List<GameObject>();
         List<GameObject> regularPoints = new List<GameObject>();
@@ -120,8 +130,8 @@ public class RevolverProjectile : ProjectileBase
         {
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
-            transform.LookAt(markedEnemy.position);
-            transform.Rotate(90, 0, 0);
+            //transform.LookAt(markedEnemy.position);
+            //transform.Rotate(90, 0, 0);
         }
 
         yield return new WaitForSeconds(lockOnTime);
@@ -142,7 +152,10 @@ public class RevolverProjectile : ProjectileBase
                 GameObject tracer = Instantiate(bullerTracer, hit.point, Quaternion.identity);
                 SetTracerLine(tracer.GetComponent<LineRenderer>(), transform.position, hit.point);
 
+                GameObject impact = Instantiate(bulletImpactParticle, hit.point, Quaternion.LookRotation(hit.normal));
+
                 transform.position = hit.point;
+                markedEnemy = null;
             }
         }
 

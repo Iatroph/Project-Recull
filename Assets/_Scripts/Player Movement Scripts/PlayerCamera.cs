@@ -16,6 +16,7 @@ public class PlayerCamera : MonoBehaviour
     float yRotation;
 
     private float tilt;
+    float startOrientation;
 
     [Header("References")]
     public Camera playerCam;
@@ -34,6 +35,7 @@ public class PlayerCamera : MonoBehaviour
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        startOrientation = orientation.rotation.y;
     }
 
     private void Start()
@@ -46,6 +48,7 @@ public class PlayerCamera : MonoBehaviour
 
     private void Update()
     {
+
         CamTilt();
 
         horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -62,7 +65,13 @@ public class PlayerCamera : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         playerCam.transform.localRotation = Quaternion.Euler(xRotation, yRotation, tilt);
-        orientation.rotation = Quaternion.Euler(0, yRotation, 0);
+        //orientation.rotation = Quaternion.Euler(0, yRotation, 0);
+        orientation.localRotation = Quaternion.Euler(0, yRotation, 0);
+
+        //orientation.rotation = Quaternion.Euler(orientation.rotation.x, yRotation, orientation.rotation.z);
+        //orientation.rotation = Quaternion.Euler(0, yRotation + startOrientation, 0);
+
+
         playerObj.localRotation = Quaternion.Euler(0, yRotation, 0);
 
     }

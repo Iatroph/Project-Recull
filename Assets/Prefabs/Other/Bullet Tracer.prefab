@@ -85,7 +85,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.1
+        value: 0.3
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -94,7 +94,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 1
-        value: 0.1
+        value: 0.3
         inSlope: 0.04580424
         outSlope: 0.04580424
         tangentMode: 0
@@ -106,9 +106,9 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0.9151792, b: 0, a: 0.78431374}
-      key1: {r: 1, g: 0.6117803, b: 0, a: 0.78431374}
-      key2: {r: 0, g: 0, b: 0, a: 0.39215687}
+      key0: {r: 1, g: 0.8533139, b: 0, a: 1}
+      key1: {r: 1, g: 0.852, b: 0, a: 1}
+      key2: {r: 1, g: 0.6117803, b: 0, a: 0.39215687}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
@@ -116,13 +116,13 @@ LineRenderer:
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
       ctime1: 65535
-      ctime2: 0
+      ctime2: 65535
       ctime3: 0
       ctime4: 0
       ctime5: 0
       ctime6: 0
       ctime7: 0
-      atime0: 964
+      atime0: 0
       atime1: 65535
       atime2: 65535
       atime3: 0
@@ -153,4 +153,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34ce6359ca5dad44d821d17f9473c209, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startWidth: 0.2
+  startWidth: 0.25
+  shrinkTime: 0.1

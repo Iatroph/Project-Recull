@@ -316,8 +316,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 32101582}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -56.25, y: 1.199, z: -44.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -327,7 +327,7 @@ Transform:
   - {fileID: 2028807895}
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!54 &32101584
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2549,7 +2549,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 474812811}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.79999995, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3863,7 +3863,7 @@ GameObject:
   m_Component:
   - component: {fileID: 840273570}
   m_Layer: 7
-  m_Name: Barrel Head
+  m_Name: Tracer Spawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3877,7 +3877,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 840273569}
   m_LocalRotation: {x: -0, y: -0.0000033378597, z: -0, w: -1}
-  m_LocalPosition: {x: 0, y: -0.02, z: 11.72}
+  m_LocalPosition: {x: 0, y: -0.02, z: 12.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4154,6 +4154,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 849848732}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &869950629
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 869950630}
+  m_Layer: 7
+  m_Name: Muzzle Flash Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &869950630
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 869950629}
+  m_LocalRotation: {x: -0, y: -0.0000033378597, z: -0, w: -1}
+  m_LocalPosition: {x: -0, y: -0.02, z: 12.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2011880965}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!1 &880704774
 GameObject:
   m_ObjectHideFlags: 0
@@ -5567,6 +5598,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 3328
   firedProjectiles: []
+  muzzleFlashParticle: {fileID: 0}
+  muzzleFlashSpawn: {fileID: 0}
+  bulletImpactParticle: {fileID: 0}
 --- !u!1 &1197804759
 GameObject:
   m_ObjectHideFlags: 0
@@ -9691,11 +9725,14 @@ MonoBehaviour:
   fireRate: 0.5
   spread: 0
   magCapacity: 8
-  infiniteAmmo: 0
+  infiniteAmmo: 1
   ignore:
     serializedVersion: 2
     m_Bits: 3328
   firedProjectiles: []
+  muzzleFlashParticle: {fileID: 433813047244650698, guid: 2b30b6bbc82831548890fbae1c6c6ada, type: 3}
+  muzzleFlashSpawn: {fileID: 869950630}
+  bulletImpactParticle: {fileID: 4159877361529331197, guid: 05ea7b4810fdd0a4e8585e83a11e611b, type: 3}
 --- !u!95 &2011880968
 Animator:
   serializedVersion: 4
@@ -10110,6 +10147,7 @@ GameObject:
   - component: {fileID: 2102650971}
   - component: {fileID: 2102650972}
   - component: {fileID: 2102650973}
+  - component: {fileID: 2102650974}
   m_Layer: 11
   m_Name: Test Enemy
   m_TagString: Enemy
@@ -10125,7 +10163,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2102650970}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9, y: 1, z: 5}
+  m_LocalPosition: {x: -36.06, y: 1, z: 32.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10164,6 +10202,26 @@ MonoBehaviour:
   enemyID: 0
   maxHealth: 200
   currentHealth: 100
+--- !u!95 &2102650974
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102650970}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bb6f3a482dfb01948a588ab71d1e80ba, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &543450653608782818
 Transform:
   m_ObjectHideFlags: 0

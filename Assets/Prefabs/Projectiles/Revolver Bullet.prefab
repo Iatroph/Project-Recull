@@ -204,6 +204,7 @@ MonoBehaviour:
   ID: 0
   returnSpeed: 35
   bullerTracer: {fileID: 4395187950818668945, guid: 5c02b18b233bf2c48a2dabde0f7a764b, type: 3}
+  bulletImpactParticle: {fileID: 4159877361529331197, guid: 05ea7b4810fdd0a4e8585e83a11e611b, type: 3}
   upForce: 8
   recallRange: 50
   recallDamage: 15
