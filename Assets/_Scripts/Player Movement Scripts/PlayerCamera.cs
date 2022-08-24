@@ -35,15 +35,15 @@ public class PlayerCamera : MonoBehaviour
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        startOrientation = orientation.rotation.y;
+        Cursor.visible = false;
     }
 
     private void Start()
     {
         FOV = playerCam.fieldOfView;
         //Locks cursor to center of screen and sets its visibility to false
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
     }
 
     private void Update()
