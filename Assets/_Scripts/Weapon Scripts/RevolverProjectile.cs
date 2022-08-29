@@ -142,20 +142,28 @@ public class RevolverProjectile : ProjectileBase
             RaycastHit hit;
             Vector3 dir = (markedEnemy.position - transform.position).normalized;
 
-            if (Physics.Raycast(transform.position, dir, out hit, float.MaxValue, whatIsHurtBox))
+            if (Physics.Raycast(transform.position, dir, out hit, float.MaxValue/*, whatIsHurtBox*/))
             {
                 if (hit.transform.gameObject.GetComponent<Hurtbox>() != null)
                 {
                     hit.transform.gameObject.GetComponent<Hurtbox>().AdjustDamage(recallDamage);
+
+                    GameObject tracer = Instantiate(bullerTracer, hit.point, Quaternion.identity);
+                    SetTracerLine(tracer.GetComponent<LineRenderer>(), transform.position, hit.point);
+
+                    GameObject impact = Instantiate(bulletImpactParticle, hit.point, Quaternion.LookRotation(hit.normal));
+
+                    transform.position = hit.point;
+                    markedEnemy = null;
                 }
 
-                GameObject tracer = Instantiate(bullerTracer, hit.point, Quaternion.identity);
-                SetTracerLine(tracer.GetComponent<LineRenderer>(), transform.position, hit.point);
+                //GameObject tracer = Instantiate(bullerTracer, hit.point, Quaternion.identity);
+                //SetTracerLine(tracer.GetComponent<LineRenderer>(), transform.position, hit.point);
 
-                GameObject impact = Instantiate(bulletImpactParticle, hit.point, Quaternion.LookRotation(hit.normal));
+                //GameObject impact = Instantiate(bulletImpactParticle, hit.point, Quaternion.LookRotation(hit.normal));
 
-                transform.position = hit.point;
-                markedEnemy = null;
+                //transform.position = hit.point;
+                //markedEnemy = null;
             }
         }
 

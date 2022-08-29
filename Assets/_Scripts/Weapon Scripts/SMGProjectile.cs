@@ -9,6 +9,11 @@ public class SMGProjectile : ProjectileBase
     private TrailRenderer tr;
     private GameObject markedEnemy;
 
+    [Header("References")]
+    public GameObject sawBlade;
+    public GameObject casing;
+    public GameObject bulletHead;
+
     [Header("Recall Parameters")]
     public float recallDamage;
     public float sawRadius;
@@ -27,6 +32,7 @@ public class SMGProjectile : ProjectileBase
         tickTimer = tickTime;
         collidr = GetComponent<Collider>();
         tr = GetComponent<TrailRenderer>();
+        sawBlade.SetActive(false);
     }
 
     new void Start()
@@ -36,10 +42,19 @@ public class SMGProjectile : ProjectileBase
 
     new void Update()
     {
+        CheckForEnemy();
         base.Update();
         if (isReturning && markedEnemy != null)
         {
             transform.position = Vector3.MoveTowards(transform.position, markedEnemy.transform.position, trackSpeed * Time.deltaTime);
+        }
+
+        if (isReturning)
+        {
+            bulletHead.GetComponent<QuickOutline>().enabled = false;
+            casing.GetComponent<QuickOutline>().enabled = false;
+            sawBlade.SetActive(true);
+            sawBlade.transform.Rotate(0, 6 * 60 * Time.deltaTime, 0);
         }
     }
 
@@ -65,7 +80,7 @@ public class SMGProjectile : ProjectileBase
 
     public override void ActivateRecallAbility()
     {
-        CheckForEnemy();
+        //CheckForEnemy();
         ReturnToPlayer();
         collidr.GetComponent<CapsuleCollider>().radius = sawRadius;
         tr.startColor = recallTrailColor;

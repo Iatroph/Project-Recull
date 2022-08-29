@@ -1485,7 +1485,7 @@ MonoBehaviour:
   weaponName: Shredder SMG
   weaponID: 1
   playerCam: {fileID: 474812813}
-  projectile: {fileID: 6275280170510002764, guid: 16a9562284cc0064c94f90bfdc392d84, type: 3}
+  projectile: {fileID: 1056490929517789700, guid: 15511ad43dc371c4390c72e56b8497c6, type: 3}
   tracerSpawn: {fileID: 1688848632}
   bulletTracer: {fileID: 4395187950818668945, guid: 38ab0605f24f5b340bf52aa405695a07, type: 3}
   damage: 7
@@ -10417,7 +10417,7 @@ MonoBehaviour:
   weaponName: Rebound Revolver
   weaponID: 0
   playerCam: {fileID: 474812813}
-  projectile: {fileID: 6275280170510002764, guid: 3356f219f99d92a4e93bb815f1c23baf, type: 3}
+  projectile: {fileID: 8840057814155954285, guid: a412b36de8da5034794219027287b0f3, type: 3}
   tracerSpawn: {fileID: 840273570}
   bulletTracer: {fileID: 4395187950818668945, guid: 38ab0605f24f5b340bf52aa405695a07, type: 3}
   damage: 10
