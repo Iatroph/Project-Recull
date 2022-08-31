@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: -1290823261038520401}
   - component: {fileID: -1476877555240184293}
   - component: {fileID: 8600686671816916666}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Small Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307,9 +307,10 @@ MonoBehaviour:
   returnSpeed: 35
   bullerTracer: {fileID: 4395187950818668945, guid: 5c02b18b233bf2c48a2dabde0f7a764b, type: 3}
   bulletImpactParticle: {fileID: 4159877361529331197, guid: 05ea7b4810fdd0a4e8585e83a11e611b, type: 3}
+  impactSparkParticle: {fileID: 9057438573920839828, guid: 93276f8641b04974cb39a79b4805c297, type: 3}
   upForce: 8
   recallRange: 50
-  recallDamage: 15
+  recallDamage: 20
   riseTime: 0.3
   holdTime: 0.3
   lockOnTime: 0.2
@@ -317,6 +318,9 @@ MonoBehaviour:
   whatIsHurtBox:
     serializedVersion: 2
     m_Bits: 512
+  recallIgnore:
+    serializedVersion: 2
+    m_Bits: 2048
   recallTrailColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!96 &8600686671816916666
 TrailRenderer:

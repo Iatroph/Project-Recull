@@ -12,6 +12,7 @@ public class RevolverProjectile : ProjectileBase
     [Header("References")]
     public GameObject bullerTracer;
     public GameObject bulletImpactParticle;
+    public GameObject impactSparkParticle;
 
 
     [Header("Recall Parameters")]
@@ -25,8 +26,10 @@ public class RevolverProjectile : ProjectileBase
     public float lockOnTime;
     public float returnTime;
 
+
     [Header("Other")]
     public LayerMask whatIsHurtBox;
+    public LayerMask recallIgnore;
     public Color recallTrailColor;
 
     new void Awake()
@@ -83,7 +86,8 @@ public class RevolverProjectile : ProjectileBase
     {
         rb.velocity = Vector3.zero;
         rb.AddForce(Vector3.up * upForce, ForceMode.Impulse);
-        yield return new WaitForSeconds(0.1f);
+        delayTime = Random.Range(0, 0.1f);
+        yield return new WaitForSeconds(delayTime);
         bulletBounce.Spin();
         yield return new WaitForSeconds(riseTime);
         rb.useGravity = false;
@@ -142,7 +146,7 @@ public class RevolverProjectile : ProjectileBase
             RaycastHit hit;
             Vector3 dir = (markedEnemy.position - transform.position).normalized;
 
-            if (Physics.Raycast(transform.position, dir, out hit, float.MaxValue/*, whatIsHurtBox*/))
+            if (Physics.Raycast(transform.position, dir, out hit, float.MaxValue, ~recallIgnore))
             {
                 if (hit.transform.gameObject.GetComponent<Hurtbox>() != null)
                 {
@@ -152,6 +156,9 @@ public class RevolverProjectile : ProjectileBase
                     SetTracerLine(tracer.GetComponent<LineRenderer>(), transform.position, hit.point);
 
                     GameObject impact = Instantiate(bulletImpactParticle, hit.point, Quaternion.LookRotation(hit.normal));
+
+                    GameObject spark = Instantiate(impactSparkParticle, hit.point, Quaternion.identity);
+
 
                     transform.position = hit.point;
                     markedEnemy = null;

@@ -10,6 +10,7 @@ public class Revolver : WeaponBase
     public GameObject muzzleFlashParticle;
     public Transform muzzleFlashSpawn;
     public GameObject bulletImpactParticle;
+    public GameObject impactSparkParticle;
 
 
     new void Awake()
@@ -63,6 +64,7 @@ public class Revolver : WeaponBase
             if (hit.transform.gameObject.GetComponent<Hurtbox>() != null)
             {
                 hit.transform.gameObject.GetComponent<Hurtbox>().AdjustDamage(damage);
+                GameObject spark = Instantiate(impactSparkParticle, projectileSpawnPoint, Quaternion.identity);
             }
 
             GameObject tracer = Instantiate(bulletTracer, projectileSpawnPoint, Quaternion.identity);
@@ -84,11 +86,16 @@ public class Revolver : WeaponBase
 
     public override void ShootFromInput()
     {
-        if ((currentAmmo > 0 || infiniteAmmo) && canShoot)
+        if ((currentAmmo > 0 || infiniteAmmo) && canShoot && !isSwitchingWeapons)
         {
             Shoot();
             GameObject MuzzleFlash = Instantiate(muzzleFlashParticle, muzzleFlashSpawn.position, Quaternion.identity);
             anim.SetTrigger("Shoot");
         }
+    }
+
+    public override void PlaySwitchAnimation()
+    {
+        anim.SetTrigger("Switching");
     }
 }

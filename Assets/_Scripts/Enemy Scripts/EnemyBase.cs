@@ -25,7 +25,7 @@ public class EnemyBase : MonoBehaviour, IDamageable
             healthText.text = "" + maxHealth;
         }
 
-
+        currentHealth = maxHealth;
     }
 
     public virtual void TakeDamage(float damage)

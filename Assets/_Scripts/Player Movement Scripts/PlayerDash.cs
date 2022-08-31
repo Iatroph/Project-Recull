@@ -10,8 +10,8 @@ public class PlayerDash : MonoBehaviour
     float verticalInput;
 
     Vector3 dashDir;
-
-    private float dashCount;
+    [HideInInspector]
+    public float dashCount;
 
     [Header("References")]
     public Transform orientation;

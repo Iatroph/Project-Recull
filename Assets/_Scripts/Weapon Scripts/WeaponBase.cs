@@ -9,6 +9,8 @@ public class WeaponBase : MonoBehaviour
     [HideInInspector]
     public float currentAmmo;
     protected Vector3 projectileSpawnPoint;
+    [HideInInspector]
+    protected bool isSwitchingWeapons = false;
 
     [Header("Weapon Info")]
     public string weaponName;
@@ -67,7 +69,7 @@ public class WeaponBase : MonoBehaviour
 
     public virtual void ShootFromInput()
     {
-        if((currentAmmo > 0 || infiniteAmmo) && canShoot)
+        if((currentAmmo > 0 || infiniteAmmo) && canShoot && !isSwitchingWeapons)
         {
             Shoot();
         }
@@ -139,6 +141,13 @@ public class WeaponBase : MonoBehaviour
 
         }
     }
+
+    public virtual void SwitchingWeapons()
+    {
+        isSwitchingWeapons = !isSwitchingWeapons;
+    }
+
+    public virtual void PlaySwitchAnimation(){}
 
     public virtual void FireRateTimer()
     {

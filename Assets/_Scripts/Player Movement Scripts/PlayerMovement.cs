@@ -63,7 +63,8 @@ public class PlayerMovement : MonoBehaviour
     public float wallJumpUpForce;
     public float wallJumpSideForce;
     public int maxWallJumps;
-    private int wallJumpCount;
+    [HideInInspector]
+    public int wallJumpCount;
 
     [Header("Friction Parameters")]
     public float groundFriction;
@@ -90,8 +91,8 @@ public class PlayerMovement : MonoBehaviour
         airborneslide,
         dashing,
     }
-
-    private MoveState movestate;
+    [HideInInspector]
+    public MoveState movestate;
     [HideInInspector]
     public float desiredMoveSpeed;
     private float lastDesiredMoveSpeed;
@@ -243,7 +244,9 @@ public class PlayerMovement : MonoBehaviour
         CoyoteTime();
         WallCheck();
 
-        isGrounded = Physics.CheckSphere(transform.position - new Vector3(0, .65f, 0), 0.4f, ~whatIsNotGround);
+        //isGrounded = Physics.CheckSphere(transform.position - new Vector3(0, .63f, 0), 0.4f, ~whatIsNotGround);
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, 2 * 0.5f + 0.3f, ~whatIsNotGround);
+
 
         //Debug.Log(movestate);
 
@@ -251,11 +254,15 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.drag = groundDrag;
             canDoubleJump = true;
-            wallJumpCount = maxWallJumps;
         }
         else
         {
             rb.drag = 0;
+        }
+
+        if (movestate == MoveState.walking)
+        {
+            wallJumpCount = maxWallJumps;
         }
 
 
@@ -386,6 +393,7 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         hasUsedCoyoteTime = true;
         isGrounded = false;
+        directlyChangeMovementState(MoveState.airborne);
         Invoke(nameof(ResetJump), jumpCoolDown);
     }
     private void DoubleJump()
@@ -503,7 +511,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(transform.position - new Vector3(0, 0.65f, 0), 0.4f);
+        Gizmos.DrawSphere(transform.position - new Vector3(0, 0.63f, 0), 0.4f);
     }
 
     public void StopAllVelocity()

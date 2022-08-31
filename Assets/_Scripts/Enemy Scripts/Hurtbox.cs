@@ -7,12 +7,20 @@ public class Hurtbox : MonoBehaviour
     EnemyBase enemybase;
 
     [Header("Hurtbox Parameters")]
-    public float damageMultiplier;
+    public float damageMultiplier = 1;
     public bool isWeakPoint;
 
     private void Awake()
     {
-        enemybase = GetComponentInParent<EnemyBase>();
+        if (GetComponent<EnemyBase>())
+        {
+            enemybase = GetComponent<EnemyBase>();
+        }
+        else
+        {
+            enemybase = GetComponentInParent<EnemyBase>();
+
+        }
     }
 
     public void AdjustDamage(float damage)

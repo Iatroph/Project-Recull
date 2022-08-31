@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -4334602108088255616}
   - component: {fileID: -3118060109025276002}
   - component: {fileID: -7383747343434857073}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shredder Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,15 +105,15 @@ MonoBehaviour:
   sawBlade: {fileID: 8030421588390794870}
   casing: {fileID: 9039038025210188596}
   bulletHead: {fileID: 6737325441452489420}
-  recallDamage: 20
-  sawRadius: 5
+  recallDamage: 10
+  sawRadius: 6.5
   tickTime: 0.1
-  trackSpeed: 13
+  trackSpeed: 10
   enemyCheckRange: 15
   recallTrailColor: {r: 1, g: 0, b: 0, a: 1}
   whatIsHurtBox:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 2048
 --- !u!96 &-7383747343434857073
 TrailRenderer:
   serializedVersion: 2

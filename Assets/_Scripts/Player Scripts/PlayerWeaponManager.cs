@@ -20,9 +20,27 @@ public class PlayerWeaponManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentWeapon = weaponArray[0];
-        currentWeaponIndex = 0;
+        //currentWeapon = weaponArray[0];
+        //currentWeaponIndex = 0;
 
+        for (int i = 0; i < weaponArray.Length; i++)
+        {
+            if (weaponArray[i].gameObject.activeSelf)
+            {
+                currentWeapon = weaponArray[i];
+                currentWeaponIndex = i;
+                break;
+            }
+        }
+
+        for (int i = 0; i < weaponArray.Length; i++)
+        {
+            if (i != currentWeaponIndex)
+            {
+                weaponArray[i].gameObject.SetActive(false);
+
+            }
+        }
     }
 
     // Update is called once per frame
@@ -42,6 +60,7 @@ public class PlayerWeaponManager : MonoBehaviour
 
             currentWeapon = weaponArray[currentWeaponIndex];
             currentWeapon.gameObject.SetActive(true);
+            currentWeapon.PlaySwitchAnimation();
 
         }
 
@@ -56,6 +75,8 @@ public class PlayerWeaponManager : MonoBehaviour
 
             currentWeapon = weaponArray[currentWeaponIndex];
             currentWeapon.gameObject.SetActive(true);
+            currentWeapon.PlaySwitchAnimation();
+
         }
 
     }
