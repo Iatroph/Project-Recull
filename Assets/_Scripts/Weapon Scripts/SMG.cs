@@ -9,6 +9,8 @@ public class SMG : WeaponBase
     public GameObject muzzleFlashParticle;
     public Transform muzzleFlashSpawn;
     public GameObject bulletImpactParticle;
+    public GameObject impactSparkParticle;
+    public GameObject impactCritParticle;
 
     new void Awake()
     {
@@ -51,13 +53,24 @@ public class SMG : WeaponBase
 
             if (hit.transform.gameObject.GetComponent<Hurtbox>() != null)
             {
-                hit.transform.gameObject.GetComponent<Hurtbox>().AdjustDamage(damage);
+                Hurtbox hb = hit.transform.gameObject.GetComponent<Hurtbox>();
+                hb.AdjustDamage(damage);
+
+                if (hb.isWeakPoint)
+                {
+                    GameObject critSpark = Instantiate(impactCritParticle, projectileSpawnPoint, Quaternion.identity);
+                }
+                else
+                {
+                    GameObject spark = Instantiate(impactSparkParticle, projectileSpawnPoint, Quaternion.identity);
+                }
             }
+
+            GameObject impact = Instantiate(bulletImpactParticle, projectileSpawnPoint, Quaternion.LookRotation(hit.normal));
 
             GameObject tracer = Instantiate(bulletTracer, projectileSpawnPoint, Quaternion.identity);
             SetTracerLine(tracer.GetComponent<LineRenderer>(), tracerSpawn.position, hit.point);
 
-            GameObject impact = Instantiate(bulletImpactParticle, projectileSpawnPoint, Quaternion.LookRotation(hit.normal));
 
         }
         else

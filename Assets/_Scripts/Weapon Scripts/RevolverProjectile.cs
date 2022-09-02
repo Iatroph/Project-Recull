@@ -7,12 +7,14 @@ public class RevolverProjectile : ProjectileBase
     float delayTime;
     private TrailRenderer tr;
     Transform markedEnemy = null;
-
+    bool isSearching = false;
 
     [Header("References")]
     public GameObject bullerTracer;
     public GameObject bulletImpactParticle;
     public GameObject impactSparkParticle;
+    public GameObject muzzleFlashParticle;
+    public Transform muzzleFlashSpawn;
 
 
     [Header("Recall Parameters")]
@@ -48,11 +50,26 @@ public class RevolverProjectile : ProjectileBase
     {
         base.Update();
 
-        if (markedEnemy != null)
+        if (isSearching)
         {
-            transform.LookAt(markedEnemy.position);
-            transform.Rotate(90, 0, 0);
+            CheckForEnemy();
         }
+
+        if (markedEnemy != null && isSearching)
+        {
+            if (Physics.Raycast(transform.position, (markedEnemy.position - transform.position).normalized, out RaycastHit hit, recallRange, ~recallIgnore))
+            {
+                if(hit.transform.gameObject.GetComponent<Hurtbox>() != null)
+                {
+                    transform.LookAt(markedEnemy.position);
+                    transform.Rotate(90, 0, 0);
+                    rb.velocity = Vector3.zero;
+                    rb.angularVelocity = Vector3.zero;
+                }
+            }
+
+        }
+
     }
 
     public override void ActivateRecallAbility()
@@ -82,37 +99,25 @@ public class RevolverProjectile : ProjectileBase
         lr.SetPosition(1, end);
     }
 
-    public IEnumerator Rebound()
+    public void CheckForEnemy()
     {
-        rb.velocity = Vector3.zero;
-        rb.AddForce(Vector3.up * upForce, ForceMode.Impulse);
-        delayTime = Random.Range(0, 0.1f);
-        yield return new WaitForSeconds(delayTime);
-        bulletBounce.Spin();
-        yield return new WaitForSeconds(riseTime);
-        rb.useGravity = false;
-
-        yield return new WaitForSeconds(holdTime);
-
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, recallRange, whatIsHurtBox);
-        //Transform markedEnemy = null;
 
         List<GameObject> weakPoints = new List<GameObject>();
         List<GameObject> regularPoints = new List<GameObject>();
 
-
         foreach (Collider c in hitEnemies)
         {
-            if(c.GetComponent<Hurtbox>() != null)
+            if (c.GetComponent<Hurtbox>() != null)
             {
                 Hurtbox hb = c.GetComponent<Hurtbox>();
-                if(hb.isWeakPoint == true)
+                if (hb.isWeakPoint == true)
                 {
                     weakPoints.Add(c.gameObject);
                 }
                 else
                 {
-                    regularPoints.Add(c.gameObject);               
+                    regularPoints.Add(c.gameObject);
                 }
             }
         }
@@ -130,26 +135,34 @@ public class RevolverProjectile : ProjectileBase
             }
         }
 
-        if (markedEnemy != null)
-        {
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-            //transform.LookAt(markedEnemy.position);
-            //transform.Rotate(90, 0, 0);
-        }
+    }
 
+    public IEnumerator Rebound()
+    {
+        rb.velocity = Vector3.zero;
+        rb.AddForce(Vector3.up * upForce, ForceMode.Impulse);
+        delayTime = Random.Range(0, 0.1f);
+        yield return new WaitForSeconds(delayTime);
+        bulletBounce.Spin();
+        yield return new WaitForSeconds(riseTime);
+        rb.useGravity = false;
+        yield return new WaitForSeconds(holdTime);
+        isSearching = true;
         yield return new WaitForSeconds(lockOnTime);
 
-
         if (markedEnemy != null)
         {
+            tr.enabled = false;
+            isSearching = false;
             RaycastHit hit;
             Vector3 dir = (markedEnemy.position - transform.position).normalized;
-
             if (Physics.Raycast(transform.position, dir, out hit, float.MaxValue, ~recallIgnore))
             {
+
                 if (hit.transform.gameObject.GetComponent<Hurtbox>() != null)
                 {
+                    GameObject MuzzleFlash = Instantiate(muzzleFlashParticle, muzzleFlashSpawn.position, Quaternion.identity);
+
                     hit.transform.gameObject.GetComponent<Hurtbox>().AdjustDamage(recallDamage);
 
                     GameObject tracer = Instantiate(bullerTracer, hit.point, Quaternion.identity);
@@ -159,26 +172,17 @@ public class RevolverProjectile : ProjectileBase
 
                     GameObject spark = Instantiate(impactSparkParticle, hit.point, Quaternion.identity);
 
-
                     transform.position = hit.point;
                     markedEnemy = null;
+                    bulletBounce.Bounce();
                 }
 
-                //GameObject tracer = Instantiate(bullerTracer, hit.point, Quaternion.identity);
-                //SetTracerLine(tracer.GetComponent<LineRenderer>(), transform.position, hit.point);
-
-                //GameObject impact = Instantiate(bulletImpactParticle, hit.point, Quaternion.LookRotation(hit.normal));
-
-                //transform.position = hit.point;
-                //markedEnemy = null;
             }
         }
-
-
+        tr.enabled = true;
         rb.useGravity = true;
-        bulletBounce.Bounce();
         yield return new WaitForSeconds(returnTime);
-
+        bulletBounce.Spin();
         ReturnToPlayer();
     }
 }

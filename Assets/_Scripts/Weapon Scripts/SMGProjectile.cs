@@ -13,6 +13,7 @@ public class SMGProjectile : ProjectileBase
     public GameObject sawBlade;
     public GameObject casing;
     public GameObject bulletHead;
+    public GameObject sawSpark;
 
     [Header("Recall Parameters")]
     public float recallDamage;
@@ -24,6 +25,7 @@ public class SMGProjectile : ProjectileBase
     [Header("Other")]
     public Color recallTrailColor;
     public LayerMask whatIsHurtBox;
+
 
 
     new void Awake()
@@ -91,6 +93,8 @@ public class SMGProjectile : ProjectileBase
         if (collision.transform.CompareTag("Enemy") && isReturning)
         {
             collision.transform.GetComponent<IDamageable>().TakeDamage(recallDamage);
+            GameObject spark = Instantiate(sawSpark, collision.GetContact(0).point, Quaternion.identity);
+
         }
     }
 
@@ -103,6 +107,8 @@ public class SMGProjectile : ProjectileBase
             {
                 tickTimer = tickTime;
                 collision.transform.GetComponent<IDamageable>().TakeDamage(recallDamage);
+                GameObject spark = Instantiate(sawSpark, collision.GetContact(0).point, Quaternion.identity);
+
             }
         }
     }
