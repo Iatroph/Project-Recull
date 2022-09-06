@@ -14,6 +14,7 @@ public class SMGProjectile : ProjectileBase
     public GameObject casing;
     public GameObject bulletHead;
     public GameObject sawSpark;
+    public GameObject smallSawSpark;
 
     [Header("Recall Parameters")]
     public float recallDamage;
@@ -82,7 +83,6 @@ public class SMGProjectile : ProjectileBase
 
     public override void ActivateRecallAbility()
     {
-        //CheckForEnemy();
         ReturnToPlayer();
         collidr.GetComponent<CapsuleCollider>().radius = sawRadius;
         tr.startColor = recallTrailColor;
@@ -94,7 +94,14 @@ public class SMGProjectile : ProjectileBase
         {
             collision.transform.GetComponent<IDamageable>().TakeDamage(recallDamage);
             GameObject spark = Instantiate(sawSpark, collision.GetContact(0).point, Quaternion.identity);
-
+        }
+        else
+        {
+            if (isReturning)
+            {
+                GameObject smallSpark = Instantiate(smallSawSpark, collision.GetContact(0).point, Quaternion.identity);
+                bulletBounce.Bounce();
+            }
         }
     }
 

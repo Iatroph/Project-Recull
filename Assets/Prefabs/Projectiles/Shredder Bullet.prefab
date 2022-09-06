@@ -101,14 +101,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projName: SMG Bullet
   ID: 1
-  returnSpeed: 35
+  returnSpeed: 28
   sawBlade: {fileID: 8030421588390794870}
   casing: {fileID: 9039038025210188596}
   bulletHead: {fileID: 6737325441452489420}
   sawSpark: {fileID: 9057438573920839828, guid: 4aa316e70a82c764996e0ff18e4f35e9, type: 3}
+  smallSawSpark: {fileID: 9057438573920839828, guid: e7a99f8ee96a06845a06f0422ab6cb5e, type: 3}
   recallDamage: 10
-  sawRadius: 6.5
-  tickTime: 0.1
+  sawRadius: 7
+  tickTime: 0.05
   trackSpeed: 10
   enemyCheckRange: 15
   recallTrailColor: {r: 1, g: 0, b: 0, a: 1}

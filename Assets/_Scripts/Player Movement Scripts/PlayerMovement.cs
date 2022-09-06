@@ -330,7 +330,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (rb.velocity.y > 0)
             {
-                rb.AddForce(Vector3.down * 150f, ForceMode.Force);
+                rb.AddForce(Vector3.down * 50f, ForceMode.Force);
             }
         }
         else if(isGrounded && isSliding)
