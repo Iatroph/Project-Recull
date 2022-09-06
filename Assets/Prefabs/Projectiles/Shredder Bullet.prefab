@@ -108,8 +108,8 @@ MonoBehaviour:
   sawSpark: {fileID: 9057438573920839828, guid: 4aa316e70a82c764996e0ff18e4f35e9, type: 3}
   smallSawSpark: {fileID: 9057438573920839828, guid: e7a99f8ee96a06845a06f0422ab6cb5e, type: 3}
   recallDamage: 10
-  sawRadius: 7
-  tickTime: 0.05
+  sawRadius: 5
+  tickTime: 0.1
   trackSpeed: 10
   enemyCheckRange: 15
   recallTrailColor: {r: 1, g: 0, b: 0, a: 1}

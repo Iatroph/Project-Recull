@@ -83,6 +83,7 @@ public class SMGProjectile : ProjectileBase
 
     public override void ActivateRecallAbility()
     {
+        bulletBounce.Bounce();
         ReturnToPlayer();
         collidr.GetComponent<CapsuleCollider>().radius = sawRadius;
         tr.startColor = recallTrailColor;

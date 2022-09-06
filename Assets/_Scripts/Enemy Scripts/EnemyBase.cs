@@ -17,15 +17,13 @@ public class EnemyBase : MonoBehaviour, IDamageable
     public TMP_Text healthText;
 
 
-    private void Awake()
+    protected void Awake()
     {
         currentHealth = maxHealth;
         if (healthText)
         {
             healthText.text = "" + maxHealth;
         }
-
-        currentHealth = maxHealth;
     }
 
     public virtual void TakeDamage(float damage)

@@ -27,7 +27,7 @@ public class PlayerDash : MonoBehaviour
     public float maxDashes;
 
     [Header("Dash Recharge")]
-    public float dashRecharge;
+    public float dashRechargeTime;
     private float dashRechargeTimer;
 
     [Header("Keybinds")]
@@ -43,6 +43,7 @@ public class PlayerDash : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         pm = GetComponent<PlayerMovement>();
         dashCount = maxDashes;
+        dashRechargeTimer = dashRechargeTime;
     }
 
     private void Update()
@@ -50,15 +51,6 @@ public class PlayerDash : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        //if (Input.GetKeyDown(dashKey) && dashRechargeTimer <= 0 && !pm.isSliding)
-        //{
-        //    Dash();
-        //}
-
-        //if (Input.GetKeyDown(dashKey) && dashRechargeTimer <= 0 && dashCount > 0 &&!pm.isSliding)
-        //{
-        //    Dash();
-        //}
 
         if (Input.GetKeyDown(dashKey) && dashCount > 0 && !pm.isSliding)
         {
@@ -77,7 +69,7 @@ public class PlayerDash : MonoBehaviour
             if(dashRechargeTimer <= 0)
             {
                 dashCount++;
-                dashRechargeTimer = dashRecharge;
+                dashRechargeTimer = dashRechargeTime;
             }
         }
 
@@ -91,7 +83,7 @@ public class PlayerDash : MonoBehaviour
     private void Dash()
     {
         dashCount--;
-        dashRechargeTimer = dashRecharge;
+        //dashRechargeTimer = dashRecharge;
 
         dashDir = pm.moveDir;
         pm.StopAllVelocity();
