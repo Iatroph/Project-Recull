@@ -27,8 +27,6 @@ public class SMGProjectile : ProjectileBase
     public Color recallTrailColor;
     public LayerMask whatIsHurtBox;
 
-
-
     new void Awake()
     {
         base.Awake();
@@ -83,7 +81,6 @@ public class SMGProjectile : ProjectileBase
 
     public override void ActivateRecallAbility()
     {
-        bulletBounce.Bounce();
         ReturnToPlayer();
         collidr.GetComponent<CapsuleCollider>().radius = sawRadius;
         tr.startColor = recallTrailColor;

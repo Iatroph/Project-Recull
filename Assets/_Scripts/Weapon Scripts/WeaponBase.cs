@@ -5,16 +5,21 @@ using UnityEngine;
 public class WeaponBase : MonoBehaviour
 {
     protected bool canShoot;
+    [HideInInspector]
+    public bool canRecall;
     protected float shootTimer;
     [HideInInspector]
     public float currentAmmo;
     protected Vector3 projectileSpawnPoint;
     [HideInInspector]
     protected bool isSwitchingWeapons = false;
+    [HideInInspector]
+    public float recallCooldownTimer;
 
     [Header("Weapon Info")]
     public string weaponName;
     public int weaponID;
+    public bool isActiveWeapon;
 
     [Header("References")]
     public Camera playerCam;
@@ -22,11 +27,17 @@ public class WeaponBase : MonoBehaviour
     public Transform tracerSpawn;
     public GameObject bulletTracer;
 
+    [Header("Mesh List")]
+    public List<MeshRenderer> Meshes = new List<MeshRenderer>();
+
     [Header("Weapon Statistics")]
     public float damage;
     public float fireRate;
     public float spread;
     public float magCapacity;
+
+    [Header("Base Recall Parameters")]
+    public float recallCooldown;
 
     [Header("Modifiers")]
     public bool infiniteAmmo;
@@ -40,23 +51,13 @@ public class WeaponBase : MonoBehaviour
     protected void Awake()
     {
         currentAmmo = magCapacity;
+        recallCooldownTimer = 0;
     }
 
     protected void Update()
     {
         FireRateTimer();
-
-        //MOVE BELOW CODE TO A PLAYER WEAPON MANAGER SCRIPT
-
-        //if (Input.GetMouseButton(0) && (currentAmmo > 0 || infiniteAmmo) && canShoot == true)
-        //{
-        //    Shoot();
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.R))
-        //{
-        //    Recall();
-        //}
+        RecallTimer();
     }
 
     public virtual void AddAmmo()
@@ -126,6 +127,8 @@ public class WeaponBase : MonoBehaviour
 
     public virtual void Recall()
     {
+        canRecall = false;
+        recallCooldownTimer = recallCooldown;
         for (int i = firedProjectiles.Count - 1; i > -1; i--)
         {
             if (firedProjectiles[i] != null)
@@ -156,6 +159,24 @@ public class WeaponBase : MonoBehaviour
         {
             shootTimer = 0;
             canShoot = true;
+        }
+    }
+
+    public virtual void RecallTimer()
+    {
+        recallCooldownTimer -= Time.deltaTime;
+        if(recallCooldownTimer <= 0)
+        {
+            recallCooldownTimer = 0;
+            canRecall = true;
+        }
+    }
+
+    public virtual void ToggleMesh()
+    {
+        foreach(MeshRenderer mr in Meshes)
+        {
+            mr.enabled = !mr.enabled;
         }
     }
 

@@ -16,7 +16,6 @@ public class RevolverProjectile : ProjectileBase
     public GameObject muzzleFlashParticle;
     public Transform muzzleFlashSpawn;
 
-
     [Header("Recall Parameters")]
     public float upForce;
     public float recallRange;

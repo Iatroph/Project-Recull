@@ -11,6 +11,7 @@ public class PlayerWeaponManager : MonoBehaviour
 
     [Header("UI")]
     public TMP_Text ammoText;
+    public TMP_Text recallText;
 
     [Header("Input")]
     public KeyCode shootButton = KeyCode.Mouse0;
@@ -25,7 +26,14 @@ public class PlayerWeaponManager : MonoBehaviour
 
         for (int i = 0; i < weaponArray.Length; i++)
         {
-            if (weaponArray[i].gameObject.activeSelf)
+            //if (weaponArray[i].gameObject.activeSelf)
+            //{
+            //    currentWeapon = weaponArray[i];
+            //    currentWeaponIndex = i;
+            //    break;
+            //}
+
+            if (weaponArray[i].isActiveWeapon)
             {
                 currentWeapon = weaponArray[i];
                 currentWeaponIndex = i;
@@ -33,14 +41,13 @@ public class PlayerWeaponManager : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < weaponArray.Length; i++)
-        {
-            if (i != currentWeaponIndex)
-            {
-                weaponArray[i].gameObject.SetActive(false);
-
-            }
-        }
+        //for (int i = 0; i < weaponArray.Length; i++)
+        //{
+        //    if (i != currentWeaponIndex)
+        //    {
+        //        weaponArray[i].gameObject.SetActive(false);
+        //    }
+        //}
     }
 
     // Update is called once per frame
@@ -48,18 +55,40 @@ public class PlayerWeaponManager : MonoBehaviour
     {
         InputManager();
         UpdateAmmo();
-
+        UpdateRecallTimer();
+        Debug.Log(currentWeaponIndex);
         if (Input.GetAxis("Mouse ScrollWheel") > 0) // forward
         {
             currentWeaponIndex--;
-            currentWeapon.gameObject.SetActive(false);
-            if(currentWeaponIndex < 0)
+            //currentWeapon.gameObject.SetActive(false);
+            currentWeapon.ToggleMesh();
+
+            if (currentWeaponIndex < 0)
             {
                 currentWeaponIndex = weaponArray.Length - 1;
             }
+            
+            if(weaponArray[currentWeaponIndex] == null)
+            {
+                while (weaponArray[currentWeaponIndex] == null)
+                {
+                    currentWeaponIndex--;
+                    if (currentWeaponIndex < 0)
+                    {
+                        currentWeaponIndex = weaponArray.Length - 1;
+                        break;
+                    }
+                }
+            }
+
+            //if(currentWeaponIndex < 0)
+            //{
+            //    currentWeaponIndex = weaponArray.Length - 1;
+            //}
 
             currentWeapon = weaponArray[currentWeaponIndex];
-            currentWeapon.gameObject.SetActive(true);
+            //currentWeapon.gameObject.SetActive(true);
+            currentWeapon.ToggleMesh();
             currentWeapon.PlaySwitchAnimation();
 
         }
@@ -67,14 +96,34 @@ public class PlayerWeaponManager : MonoBehaviour
         if (Input.GetAxis("Mouse ScrollWheel") < 0) // backward
         {
             currentWeaponIndex++;
-            currentWeapon.gameObject.SetActive(false);
+            //currentWeapon.gameObject.SetActive(false);
+            currentWeapon.ToggleMesh();
+
             if (currentWeaponIndex > weaponArray.Length - 1)
             {
                 currentWeaponIndex = 0;
             }
+            else if (weaponArray[currentWeaponIndex] == null)
+            {
+                while (weaponArray[currentWeaponIndex] == null)
+                {
+                    currentWeaponIndex++;
+                    if (currentWeaponIndex > weaponArray.Length - 1)
+                    {
+                        currentWeaponIndex = 0;
+                        break;
+                    }
+                }
+            }
+
+            //if (currentWeaponIndex > weaponArray.Length - 1)
+            //{
+            //    currentWeaponIndex = 0;
+            //}
 
             currentWeapon = weaponArray[currentWeaponIndex];
-            currentWeapon.gameObject.SetActive(true);
+            //currentWeapon.gameObject.SetActive(true);
+            currentWeapon.ToggleMesh();
             currentWeapon.PlaySwitchAnimation();
 
         }
@@ -88,7 +137,7 @@ public class PlayerWeaponManager : MonoBehaviour
             currentWeapon.ShootFromInput();
         }
 
-        if (Input.GetKeyDown(recallKey))
+        if (Input.GetKeyDown(recallKey) && currentWeapon.canRecall)
         {
             currentWeapon.Recall();
         }
@@ -99,6 +148,21 @@ public class PlayerWeaponManager : MonoBehaviour
         if(ammoText != null && currentWeapon != null)
         {
             ammoText.text = currentWeapon.currentAmmo + "/" + currentWeapon.magCapacity;
+        }
+    }
+    public void UpdateRecallTimer()
+    {
+        if (recallText != null && currentWeapon != null)
+        {
+            if (currentWeapon.canRecall)
+            {
+                recallText.text = "READY!";
+            }
+            else
+            {
+                recallText.text = currentWeapon.recallCooldownTimer.ToString("#.00");
+
+            }
         }
     }
 
