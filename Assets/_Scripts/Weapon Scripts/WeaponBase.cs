@@ -180,6 +180,14 @@ public class WeaponBase : MonoBehaviour
         }
     }
 
+    public virtual void DisableMesh()
+    {
+        foreach (MeshRenderer mr in Meshes)
+        {
+            mr.enabled = false;
+        }
+    }
+
     public void SetTracerLine(LineRenderer lr, Vector3 start, Vector3 end)
     {
         lr.SetPosition(0, start);

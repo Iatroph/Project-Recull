@@ -21,6 +21,15 @@ public class SMG : WeaponBase
     new void Update()
     {
         base.Update();
+
+        if (PlayerMovement.instance.isGrounded && PlayerMovement.instance.moveDir.magnitude != 0 && !PlayerMovement.instance.isSliding && !PlayerMovement.instance.isDashing)
+        {
+            anim.SetBool("IsMoving", true);
+        }
+        else
+        {
+            anim.SetBool("IsMoving", false);
+        }
     }
 
     public override void Shoot()
@@ -96,7 +105,10 @@ public class SMG : WeaponBase
 
     public override void PlaySwitchAnimation()
     {
-        anim.SetTrigger("Switching");
+        if (anim != null)
+        {
+            anim.SetTrigger("Switching");
+        }
     }
 
 }

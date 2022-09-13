@@ -37,7 +37,10 @@ public class PlayerWeaponManager : MonoBehaviour
             {
                 currentWeapon = weaponArray[i];
                 currentWeaponIndex = i;
-                break;
+            }
+            else
+            {
+                weaponArray[i].DisableMesh();
             }
         }
 
@@ -140,6 +143,37 @@ public class PlayerWeaponManager : MonoBehaviour
         if (Input.GetKeyDown(recallKey) && currentWeapon.canRecall)
         {
             currentWeapon.Recall();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            NumSwapWeapons(0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            NumSwapWeapons(1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            NumSwapWeapons(2);
+        }
+    }
+
+    public void NumSwapWeapons(int index)
+    {
+        if(weaponArray[index] == null || currentWeaponIndex == index)
+        {
+            return;
+        }
+        else
+        {
+            currentWeapon.ToggleMesh();
+            currentWeaponIndex = index;
+            currentWeapon = weaponArray[index];
+            currentWeapon.ToggleMesh();
+
         }
     }
 

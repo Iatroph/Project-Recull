@@ -109,6 +109,10 @@ public class Revolver : WeaponBase
 
     public override void PlaySwitchAnimation()
     {
-        anim.SetTrigger("Switching");
+        if(anim != null)
+        {
+            anim.SetTrigger("Switching");
+        }
+
     }
 }
