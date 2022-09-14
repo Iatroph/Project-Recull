@@ -5,38 +5,57 @@ using TMPro;
 
 public class PlayerStats : MonoBehaviour
 {
+    private float iFramesTimer;
+    private bool iFramesOn;
+
     [HideInInspector]
     public float currentHealth;
 
     [Header("Player Parameters")]
     public float maxHealth;
+    public float iFramesTime;
 
     [Header("UI")]
     public TMP_Text healthText;
+    public DamageEffect de;
 
     private void Awake()
     {
         currentHealth = maxHealth;
         healthText.text = "Health: " + currentHealth;
+        iFramesTimer = iFramesTime;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            TakeDamage(10);
+        }
+
+        IFrameTimer();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void IFrameTimer()
     {
-        
+        if (iFramesOn)
+        {
+            iFramesTimer -= Time.deltaTime;
+            if(iFramesTimer <= 0)
+            {
+                iFramesOn = false;
+                iFramesTimer = iFramesTime;
+            }
+        }
     }
 
     public void TakeDamage(float damage)
     {
-        if (currentHealth > 0)
+        if (currentHealth > 0 && !iFramesOn)
         {
+            iFramesOn = true;
             currentHealth -= damage;
+            de.RedFlash();
             if (currentHealth <= 0)
             {
                 currentHealth = 0;

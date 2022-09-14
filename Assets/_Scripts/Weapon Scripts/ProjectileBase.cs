@@ -56,7 +56,7 @@ public class ProjectileBase : MonoBehaviour //CREATE BASE CLASSES FOR ALL BULLET
 
     public void OnTriggerEnter(Collider other) //Add ammo collection
     {
-        if (other.gameObject.CompareTag("Player") && isReturning)
+        if (other.gameObject.CompareTag("Bullet Collection") && isReturning)
         {
             other.gameObject.GetComponentInParent<PlayerWeaponManager>().ReloadAmmo(ID);
             hasReturned = true;
@@ -65,7 +65,7 @@ public class ProjectileBase : MonoBehaviour //CREATE BASE CLASSES FOR ALL BULLET
     }
     public void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && isReturning && !hasReturned)
+        if (other.gameObject.CompareTag("Bullet Collection") && isReturning && !hasReturned)
         {
             other.gameObject.GetComponentInParent<PlayerWeaponManager>().ReloadAmmo(ID);
             hasReturned = true;

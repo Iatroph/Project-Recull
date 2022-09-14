@@ -245,7 +245,7 @@ public class PlayerMovement : MonoBehaviour
         WallCheck();
 
         //isGrounded = Physics.CheckSphere(transform.position - new Vector3(0, .63f, 0), 0.4f, ~whatIsNotGround);
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, 2 * 0.5f + 0.3f, ~whatIsNotGround);
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, 2 * 0.5f + 0.4f, ~whatIsNotGround);
 
 
         //Debug.Log(movestate);
@@ -330,7 +330,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (rb.velocity.y > 0)
             {
-                rb.AddForce(Vector3.down * 50f, ForceMode.Force);
+                rb.AddForce(Vector3.down * 150f, ForceMode.Force);
             }
         }
         else if(isGrounded && isSliding)
@@ -349,6 +349,11 @@ public class PlayerMovement : MonoBehaviour
         if (!OnSlope() || !isGrounded)
         {
             rb.AddForce(Vector3.down * gravity, ForceMode.Force);
+        }
+        else
+        {
+            //rb.AddForce(Vector3.down * 10, ForceMode.Force);
+
         }
 
     }

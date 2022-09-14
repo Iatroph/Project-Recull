@@ -8,6 +8,7 @@ public class ShotgunProjectile : ProjectileBase
 
     [Header("References")]
     public GameObject explosionParticle;
+    public GameObject explosionImpactParticle;
 
     [Header("Recall Parameters")]
     public float explosionRadius;
@@ -39,6 +40,11 @@ public class ShotgunProjectile : ProjectileBase
         foreach (Collider c in hitEnemies)
         {
             c.transform.GetComponent<IDamageable>().TakeDamage(explosionDamage);
+            Vector3 dir = (c.transform.position - transform.position).normalized;
+            if(Physics.Raycast(transform.position, dir, out RaycastHit hit, explosionRadius, whatIsEnemy))
+            {
+                GameObject sparks = Instantiate(explosionImpactParticle, hit.transform.position, Quaternion.identity);
+            }
         }
     }
 

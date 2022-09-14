@@ -15,6 +15,7 @@ public class EnemyBase : MonoBehaviour, IDamageable
 
     [Header("Debugging")]
     public TMP_Text healthText;
+    public bool isDisabled;
 
 
     protected void Awake()
@@ -44,5 +45,10 @@ public class EnemyBase : MonoBehaviour, IDamageable
     public virtual void Die()
     {
         Destroy(gameObject);
+    }
+
+    public virtual void ToggleAI()
+    {
+        isDisabled = !isDisabled;
     }
 }

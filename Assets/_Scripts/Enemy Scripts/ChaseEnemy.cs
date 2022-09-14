@@ -9,6 +9,8 @@ public class ChaseEnemy : EnemyBase
     Transform playerTransform;
     private NavMeshAgent navAgent;
     private float distanceFromPlayer;
+    bool isAttacking;
+
     public enum State
     {
         Disabled,
@@ -29,8 +31,8 @@ public class ChaseEnemy : EnemyBase
     [Header("NavAgent Parameters")]
     public float chaseSpeed;
 
-    [Header("Other")]
-    public bool isDisabled;
+    [Header("Layermask")]
+    public LayerMask whatIsPlayer;
 
     new void Awake()
     {
@@ -67,18 +69,21 @@ public class ChaseEnemy : EnemyBase
         {
             currentState = State.Disabled;
         }
-
-        switch (currentState)
+        else
         {
-            case State.Disabled:
-                break;
-            case State.Idle:
-                break;
-            case State.Chasing:
-                ChasingState();
-                break;
-            case State.Attacking:
-                break;
+            switch (currentState)
+            {
+                case State.Disabled:
+                    break;
+                case State.Idle:
+                    break;
+                case State.Chasing:
+                    ChasingState();
+                    break;
+                case State.Attacking:
+                    AttackingState();
+                    break;
+            }
         }
     }
 
@@ -89,11 +94,82 @@ public class ChaseEnemy : EnemyBase
         if(distanceFromPlayer < meleeRange)
         {
             Debug.Log("Within Melee Range");
+            currentState = State.Attacking;
         }
     }
 
     private void AttackingState()
     {
+        if (distanceFromPlayer > meleeRange && !isAttacking)
+        {
+            currentState = State.Chasing;
+        }
 
+        if (!isAttacking)
+        {
+            StartCoroutine(Lunge());
+        }
+    }
+
+    private void MeleeAttack()
+    {
+        Collider[] colliders = Physics.OverlapSphere(meleeAttackPosition.position, meleeAttackRadius, whatIsPlayer);
+        foreach(Collider c in colliders)
+        {
+            if (c.CompareTag("Player"))
+            {
+                if (c.GetComponent<PlayerStats>())
+                {
+                    c.GetComponent<PlayerStats>().TakeDamage(meleeDamage);
+                }
+            }
+            Debug.Log(c.name);
+
+        }
+    }
+
+    public override void ToggleAI()
+    {
+        isDisabled = !isDisabled;
+        if (!isDisabled)
+        {
+            currentState = State.Chasing;
+        }
+
+    }
+
+
+    void OnDrawGizmosSelected()
+    {
+        // Draw a yellow sphere at the transform's position
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(meleeAttackPosition.position, meleeAttackRadius);
+    }
+
+    public IEnumerator Lunge()
+    {
+        navAgent.ResetPath();
+        isAttacking = true;
+        Vector3 dirToPlayer = playerTransform.position - transform.position;
+        yield return new WaitForSeconds(0.3f);
+        //transform.position += dirToPlayer * 150 * Time.deltaTime;
+        float elaspedTime = 0;
+        Vector3 origPos = transform.position;
+        Vector3 targetPos = transform.position + transform.forward * 10;
+        //GetComponent<CapsuleCollider>().enabled = false;
+        MeleeAttack();
+        while (elaspedTime < 0.3f)
+        {
+            transform.position = Vector3.Lerp(origPos, targetPos, (elaspedTime / 0.3f));
+            elaspedTime += Time.deltaTime;
+            yield return null;
+        }
+        //yield return new WaitForSeconds(1f);
+        GetComponent<CapsuleCollider>().enabled = true;
+        yield return new WaitForSeconds(0.4f);
+        currentState = State.Chasing;
+        isAttacking = false;
+
+        yield return null;
     }
 }

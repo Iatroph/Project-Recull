@@ -9,6 +9,11 @@ public class PlayerWeaponManager : MonoBehaviour
     private WeaponBase currentWeapon;
     private int currentWeaponIndex;
 
+    private float globalRecallTimer;
+
+    [Header("Global Recall")]
+    public float globalRecallTime;
+
     [Header("UI")]
     public TMP_Text ammoText;
     public TMP_Text recallText;
@@ -17,6 +22,11 @@ public class PlayerWeaponManager : MonoBehaviour
     public KeyCode shootButton = KeyCode.Mouse0;
     public KeyCode recallKey = KeyCode.R;
 
+
+    private void Awake()
+    {
+        globalRecallTimer = globalRecallTime;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -59,7 +69,7 @@ public class PlayerWeaponManager : MonoBehaviour
         InputManager();
         UpdateAmmo();
         UpdateRecallTimer();
-        Debug.Log(currentWeaponIndex);
+        //Debug.Log(currentWeaponIndex);
         if (Input.GetAxis("Mouse ScrollWheel") > 0) // forward
         {
             currentWeaponIndex--;
@@ -140,10 +150,36 @@ public class PlayerWeaponManager : MonoBehaviour
             currentWeapon.ShootFromInput();
         }
 
-        if (Input.GetKeyDown(recallKey) && currentWeapon.canRecall)
+        if (Input.GetKey(recallKey))
         {
-            currentWeapon.Recall();
+            globalRecallTimer -= Time.deltaTime;
+            if (globalRecallTimer <= 0)
+            {
+                foreach (WeaponBase weapon in weaponArray)
+                {
+                    if (weapon.canRecall)
+                    {
+                        weapon.Recall();
+                    }
+                }
+                globalRecallTimer = globalRecallTime;
+            }
+
         }
+        else if (Input.GetKeyUp(recallKey))
+        {
+            if (currentWeapon.canRecall)
+            {
+                currentWeapon.Recall();
+            }
+            globalRecallTimer = globalRecallTime;
+        }
+
+
+        //if (Input.GetKeyDown(recallKey) && currentWeapon.canRecall)
+        //{
+        //    currentWeapon.Recall();
+        //}
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -173,6 +209,8 @@ public class PlayerWeaponManager : MonoBehaviour
             currentWeaponIndex = index;
             currentWeapon = weaponArray[index];
             currentWeapon.ToggleMesh();
+            currentWeapon.PlaySwitchAnimation();
+
 
         }
     }

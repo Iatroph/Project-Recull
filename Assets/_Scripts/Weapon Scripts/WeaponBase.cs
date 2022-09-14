@@ -127,21 +127,25 @@ public class WeaponBase : MonoBehaviour
 
     public virtual void Recall()
     {
-        canRecall = false;
-        recallCooldownTimer = recallCooldown;
-        for (int i = firedProjectiles.Count - 1; i > -1; i--)
+
+        if(currentAmmo < magCapacity && canRecall == true)
         {
-            if (firedProjectiles[i] != null)
+            canRecall = false;
+            recallCooldownTimer = recallCooldown;
+            for (int i = firedProjectiles.Count - 1; i > -1; i--)
             {
-                firedProjectiles[i].GetComponent<ProjectileBase>().ActivateRecallAbility();
+                if (firedProjectiles[i] != null)
+                {
+                    firedProjectiles[i].GetComponent<ProjectileBase>().ActivateRecallAbility();
+
+                }
+                else
+                {
+                    firedProjectiles[i] = firedProjectiles[firedProjectiles.Count - 1];
+                    firedProjectiles.RemoveAt(firedProjectiles.Count - 1);
+                }
 
             }
-            else
-            {
-                firedProjectiles[i] = firedProjectiles[firedProjectiles.Count - 1];
-                firedProjectiles.RemoveAt(firedProjectiles.Count - 1);
-            }
-
         }
     }
 
