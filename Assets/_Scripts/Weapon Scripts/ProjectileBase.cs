@@ -7,6 +7,7 @@ public class ProjectileBase : MonoBehaviour //CREATE BASE CLASSES FOR ALL BULLET
     protected BulletBounce bulletBounce;
 
     private GameObject Player;
+    private PlayerWeaponManager weaponManager;
     protected Rigidbody rb;
 
     protected bool hasReturned = false;
@@ -24,7 +25,8 @@ public class ProjectileBase : MonoBehaviour //CREATE BASE CLASSES FOR ALL BULLET
     public void Awake()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
-        if(GetComponent<BulletBounce>() != null)
+        weaponManager = Player.GetComponent<PlayerWeaponManager>();
+        if (GetComponent<BulletBounce>() != null)
         {
             bulletBounce = GetComponent<BulletBounce>();
         }
@@ -58,7 +60,8 @@ public class ProjectileBase : MonoBehaviour //CREATE BASE CLASSES FOR ALL BULLET
     {
         if (other.gameObject.CompareTag("Bullet Collection") && isReturning)
         {
-            other.gameObject.GetComponentInParent<PlayerWeaponManager>().ReloadAmmo(ID);
+            //other.gameObject.GetComponentInParent<PlayerWeaponManager>().ReloadAmmo(ID);
+            weaponManager.ReloadAmmo(ID);
             hasReturned = true;
             Destroy(gameObject);
         }
@@ -67,7 +70,8 @@ public class ProjectileBase : MonoBehaviour //CREATE BASE CLASSES FOR ALL BULLET
     {
         if (other.gameObject.CompareTag("Bullet Collection") && isReturning && !hasReturned)
         {
-            other.gameObject.GetComponentInParent<PlayerWeaponManager>().ReloadAmmo(ID);
+            //other.gameObject.GetComponentInParent<PlayerWeaponManager>().ReloadAmmo(ID);
+            weaponManager.ReloadAmmo(ID);
             hasReturned = true;
             Destroy(gameObject);
         }

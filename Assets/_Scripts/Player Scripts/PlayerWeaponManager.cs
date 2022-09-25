@@ -6,8 +6,9 @@ using TMPro;
 public class PlayerWeaponManager : MonoBehaviour
 {
     public WeaponBase[] weaponArray = new WeaponBase[3];
-    private WeaponBase currentWeapon;
+    [SerializeField] private WeaponBase currentWeapon;
     private int currentWeaponIndex;
+    [SerializeField] private int numberOfWeapons;
 
     private float globalRecallTimer;
 
@@ -25,42 +26,35 @@ public class PlayerWeaponManager : MonoBehaviour
 
     private void Awake()
     {
+        numberOfWeapons = 0;
         globalRecallTimer = globalRecallTime;
+        foreach(WeaponBase weapon in weaponArray)
+        {
+            if(weapon != null)
+            {
+                numberOfWeapons++;
+            }
+        }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        //currentWeapon = weaponArray[0];
-        //currentWeaponIndex = 0;
-
         for (int i = 0; i < weaponArray.Length; i++)
         {
-            //if (weaponArray[i].gameObject.activeSelf)
-            //{
-            //    currentWeapon = weaponArray[i];
-            //    currentWeaponIndex = i;
-            //    break;
-            //}
-
-            if (weaponArray[i].isActiveWeapon)
+            if(weaponArray[i] != null)
             {
-                currentWeapon = weaponArray[i];
-                currentWeaponIndex = i;
-            }
-            else
-            {
-                weaponArray[i].DisableMesh();
+                if (weaponArray[i].isActiveWeapon)
+                {
+                    currentWeapon = weaponArray[i];
+                    currentWeaponIndex = i;
+                }
+                else
+                {
+                    weaponArray[i].DisableMesh();
+                }
             }
         }
-
-        //for (int i = 0; i < weaponArray.Length; i++)
-        //{
-        //    if (i != currentWeaponIndex)
-        //    {
-        //        weaponArray[i].gameObject.SetActive(false);
-        //    }
-        //}
     }
 
     // Update is called once per frame
@@ -69,19 +63,32 @@ public class PlayerWeaponManager : MonoBehaviour
         InputManager();
         UpdateAmmo();
         UpdateRecallTimer();
-        //Debug.Log(currentWeaponIndex);
-        if (Input.GetAxis("Mouse ScrollWheel") > 0) // forward
+        if(numberOfWeapons > 1)
+        {
+            MouseWheelWeaponSwap();
+
+        }
+
+    }
+
+    public void AddWeapon()
+    {
+        numberOfWeapons++;
+    }
+
+    public void MouseWheelWeaponSwap()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && currentWeapon != null) // forward
         {
             currentWeaponIndex--;
-            //currentWeapon.gameObject.SetActive(false);
             currentWeapon.ToggleMesh();
 
             if (currentWeaponIndex < 0)
             {
                 currentWeaponIndex = weaponArray.Length - 1;
             }
-            
-            if(weaponArray[currentWeaponIndex] == null)
+
+            if (weaponArray[currentWeaponIndex] == null)
             {
                 while (weaponArray[currentWeaponIndex] == null)
                 {
@@ -94,22 +101,15 @@ public class PlayerWeaponManager : MonoBehaviour
                 }
             }
 
-            //if(currentWeaponIndex < 0)
-            //{
-            //    currentWeaponIndex = weaponArray.Length - 1;
-            //}
-
             currentWeapon = weaponArray[currentWeaponIndex];
-            //currentWeapon.gameObject.SetActive(true);
             currentWeapon.ToggleMesh();
             currentWeapon.PlaySwitchAnimation();
 
         }
 
-        if (Input.GetAxis("Mouse ScrollWheel") < 0) // backward
+        if (Input.GetAxis("Mouse ScrollWheel") < 0 && currentWeapon != null) // backward
         {
             currentWeaponIndex++;
-            //currentWeapon.gameObject.SetActive(false);
             currentWeapon.ToggleMesh();
 
             if (currentWeaponIndex > weaponArray.Length - 1)
@@ -128,36 +128,28 @@ public class PlayerWeaponManager : MonoBehaviour
                     }
                 }
             }
-
-            //if (currentWeaponIndex > weaponArray.Length - 1)
-            //{
-            //    currentWeaponIndex = 0;
-            //}
-
             currentWeapon = weaponArray[currentWeaponIndex];
-            //currentWeapon.gameObject.SetActive(true);
             currentWeapon.ToggleMesh();
             currentWeapon.PlaySwitchAnimation();
 
         }
-
     }
 
     public void InputManager()
     {
-        if (Input.GetKey(shootButton))
+        if (Input.GetKey(shootButton) && currentWeapon != null)
         {
             currentWeapon.ShootFromInput();
         }
 
-        if (Input.GetKey(recallKey))
+        if (Input.GetKey(recallKey) && currentWeapon != null)
         {
             globalRecallTimer -= Time.deltaTime;
             if (globalRecallTimer <= 0)
             {
                 foreach (WeaponBase weapon in weaponArray)
                 {
-                    if (weapon.canRecall)
+                    if (weapon != null && weapon.canRecall)
                     {
                         weapon.Recall();
                     }
@@ -166,7 +158,7 @@ public class PlayerWeaponManager : MonoBehaviour
             }
 
         }
-        else if (Input.GetKeyUp(recallKey))
+        else if (Input.GetKeyUp(recallKey) && currentWeapon != null)
         {
             if (currentWeapon.canRecall)
             {
@@ -199,19 +191,24 @@ public class PlayerWeaponManager : MonoBehaviour
 
     public void NumSwapWeapons(int index)
     {
-        if(weaponArray[index] == null || currentWeaponIndex == index)
+        if(weaponArray.Length == 0)
+        {
+            return;
+        }
+        else if(weaponArray[index] == null || currentWeaponIndex == index)
         {
             return;
         }
         else
         {
-            currentWeapon.ToggleMesh();
-            currentWeaponIndex = index;
-            currentWeapon = weaponArray[index];
-            currentWeapon.ToggleMesh();
-            currentWeapon.PlaySwitchAnimation();
-
-
+            if(weaponArray[index] != null)
+            {
+                currentWeapon.ToggleMesh();
+                currentWeaponIndex = index;
+                currentWeapon = weaponArray[index];
+                currentWeapon.ToggleMesh();
+                currentWeapon.PlaySwitchAnimation();
+            }
         }
     }
 
@@ -242,9 +239,12 @@ public class PlayerWeaponManager : MonoBehaviour
     {
         foreach(WeaponBase weapon in weaponArray)
         {
-            if(ammoID == weapon.weaponID)
+            if(weapon != null)
             {
-                weapon.AddAmmo();
+                if (ammoID == weapon.weaponID)
+                {
+                    weapon.AddAmmo();
+                }
             }
         }
     }

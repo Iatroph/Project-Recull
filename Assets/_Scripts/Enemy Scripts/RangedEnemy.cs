@@ -2,15 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using TMPro;
 
 public class RangedEnemy : EnemyBase
 {
+    bool isGrounded;
+    bool canChangeStates;
+    public bool canGroundCheck = true;
     GameObject player;
     Transform playerTransform;
-    private NavMeshAgent navAgent;
+    //private NavMeshAgent navAgent;
     private float distanceFromPlayer;
     bool isAttacking;
     private float attackTimer;
+    Rigidbody rb;
 
     public enum State
     {
@@ -19,6 +24,7 @@ public class RangedEnemy : EnemyBase
         Chasing,
         Fleeing,
         Attacking,
+        Stunned,
     }
 
     [HideInInspector]
@@ -40,8 +46,12 @@ public class RangedEnemy : EnemyBase
     public float pursueSpeed;
     public float fleeSpeed;
 
+    [Header("AI Debugging")]
+    public TMP_Text stateText;
+
     [Header("Layermask")]
     public LayerMask whatIsPlayer;
+    public LayerMask whatIsNotGround;
 
     new void Awake()
     {
@@ -49,6 +59,10 @@ public class RangedEnemy : EnemyBase
         if (TryGetComponent(out NavMeshAgent nav))
         {
             navAgent = nav;
+        }
+        if (TryGetComponent(out Rigidbody rb))
+        {
+            this.rb = rb;
         }
 
         navAgent.speed = pursueSpeed;
@@ -70,17 +84,69 @@ public class RangedEnemy : EnemyBase
         {
             currentState = State.Chasing;
         }
+      
+    }
+
+    //public void ToggleUpdatePosition(bool toggle)
+    //{
+    //    navAgent.updatePosition = toggle;
+    //}
+
+    public void DisabledGroundCheck()
+    {
+        canGroundCheck = false;
+        isGrounded = false;
+        navAgent.enabled = false;
+        //currentState = State.Stunned;
+        //navAgent.updatePosition = false;
+        Invoke("ReenabledGC", 3);
+    }
+
+    public void ReenabledGC()
+    {
+        canGroundCheck = true;
+        navAgent.enabled = true; //SO TURNING OFF THE GODDAMN FUCKING NAVAGENT JUST WORKS.... FIGURE THIS SHIT OUT TOMORROW.
+        //navAgent.updatePosition = true;
+
     }
 
     private void Update()
     {
+        if (canGroundCheck)
+        {
+            isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.5f, ~whatIsNotGround);
+        }
+
+        //isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.5f, ~whatIsNotGround);
+
+        if (isGrounded)
+        {
+            rb.drag = 10;
+            canChangeStates = true;
+            navAgent.updatePosition = true;
+        }
+        else
+        {
+            rb.drag = 0;
+            canChangeStates = false;
+            //currentState = State.Stunned;
+            //navAgent.nextPosition = transform.position;
+            navAgent.updatePosition = false;
+        }
+
+
+        if (stateText != null)
+        {
+            stateText.text = currentState.ToString();
+        }
+
         distanceFromPlayer = Vector3.Distance(playerTransform.position, transform.position);
 
         if (isDisabled)
         {
             currentState = State.Disabled;
         }
-        else
+        else if(canChangeStates)
         {
             switch (currentState)
             {
@@ -97,12 +163,25 @@ public class RangedEnemy : EnemyBase
                 case State.Attacking:
                     AttackingState();
                     break;
+                case State.Stunned:
+                    StunnedState();
+                    break;
+
             }
         }
     }
 
+    public void StunnedState()
+    {
+        //navAgent.SetDestination(transform.position);
+        navAgent.nextPosition = transform.position;
+        //Physics.Raycast(transform.position, Vector3.down,out RaycastHit hit, 100, ~whatIsNotGround);
+        //navAgent.nextPosition = hit.point;
+    }
+
     public void ChasingState()
     {
+        navAgent.speed = pursueSpeed;
         navAgent.SetDestination(playerTransform.position);
         if(distanceFromPlayer < pursueRange)
         {
@@ -112,17 +191,15 @@ public class RangedEnemy : EnemyBase
 
     public void FleeingState()
     {
-        //Vector3 relativePos = playerTransform.position - transform.position;
-        //Quaternion rotation = Quaternion.LookRotation(-relativePos, Vector3.up);
-        //transform.rotation = rotation;
+        navAgent.speed = fleeSpeed;
 
         Vector3 dirToPlayer = transform.position - playerTransform.position;
 
-        Vector3 newPos = transform.position + dirToPlayer * 1.5f;
+        Vector3 newPos = transform.position + dirToPlayer * 3f;
 
         navAgent.SetDestination(newPos);
 
-        if (distanceFromPlayer > fleeRange + 2)
+        if (distanceFromPlayer > fleeRange + 5)
         {
             currentState = State.Chasing;
         }
@@ -153,8 +230,6 @@ public class RangedEnemy : EnemyBase
 
             GameObject proj = Instantiate(projectile, projectileSpawn.position, Quaternion.LookRotation(dirToPlayer));
             proj.GetComponent<EnemyProjectile>().damage = projectileDamage;
-
-
         }
 
     }

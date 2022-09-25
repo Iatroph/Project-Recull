@@ -19,6 +19,9 @@ public class PlayerStats : MonoBehaviour
     public TMP_Text healthText;
     public DamageEffect de;
 
+    [Header("Debugging")]
+    public bool godMode;
+
     private void Awake()
     {
         currentHealth = maxHealth;
@@ -28,10 +31,10 @@ public class PlayerStats : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            TakeDamage(10);
-        }
+        //if (Input.GetKeyDown(KeyCode.F))
+        //{
+        //    TakeDamage(10);
+        //}
 
         IFrameTimer();
     }
@@ -51,7 +54,7 @@ public class PlayerStats : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        if (currentHealth > 0 && !iFramesOn)
+        if (currentHealth > 0 && !iFramesOn && !godMode)
         {
             iFramesOn = true;
             currentHealth -= damage;

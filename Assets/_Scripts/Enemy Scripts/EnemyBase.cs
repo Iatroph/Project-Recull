@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.AI;
 
 public class EnemyBase : MonoBehaviour, IDamageable
 {
+    protected NavMeshAgent navAgent;
+
     [Header("Enemy Info")]
     public string enemyName;
     public int enemyID;
+    public bool usesNavMeshAgent;
 
     [Header("Enemy Stats")]
     public float maxHealth;
@@ -50,5 +54,10 @@ public class EnemyBase : MonoBehaviour, IDamageable
     public virtual void ToggleAI()
     {
         isDisabled = !isDisabled;
+    }
+
+    public virtual void ToggleUpdatePosition(bool toggle)
+    {
+        navAgent.updatePosition = toggle;
     }
 }

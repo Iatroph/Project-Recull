@@ -28,14 +28,16 @@ public class EnemyProjectile : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if(other.gameObject.CompareTag("Bullet Collection"))
-        {
+        Destroy(gameObject);
 
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        //if(other.gameObject.CompareTag("Bullet Collection"))
+        //{
+
+        //}
+        //else
+        //{
+        //    Destroy(gameObject);
+        //}
     }
 
 

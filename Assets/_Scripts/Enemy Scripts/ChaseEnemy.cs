@@ -7,7 +7,7 @@ public class ChaseEnemy : EnemyBase
 {
     GameObject player;
     Transform playerTransform;
-    private NavMeshAgent navAgent;
+    //private NavMeshAgent navAgent;
     private float distanceFromPlayer;
     bool isAttacking;
 
@@ -37,7 +37,7 @@ public class ChaseEnemy : EnemyBase
     new void Awake()
     {
         base.Awake();
-        if(TryGetComponent(out NavMeshAgent nav))
+        if (TryGetComponent(out NavMeshAgent nav))
         {
             navAgent = nav;
         }

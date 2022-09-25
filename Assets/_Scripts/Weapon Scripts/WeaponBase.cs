@@ -52,6 +52,7 @@ public class WeaponBase : MonoBehaviour
     {
         currentAmmo = magCapacity;
         recallCooldownTimer = 0;
+        playerCam = Camera.main;
     }
 
     protected void Update()
