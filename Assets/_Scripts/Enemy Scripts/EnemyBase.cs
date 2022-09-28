@@ -21,7 +21,6 @@ public class EnemyBase : MonoBehaviour, IDamageable
     public TMP_Text healthText;
     public bool isDisabled;
 
-
     protected void Awake()
     {
         currentHealth = maxHealth;
@@ -44,6 +43,11 @@ public class EnemyBase : MonoBehaviour, IDamageable
         {
             Die();
         }
+    }
+
+    public virtual void Knockback(Vector3 dir, float force, float upForce)
+    {
+
     }
 
     public virtual void Die()

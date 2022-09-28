@@ -9,6 +9,7 @@ public class DamageEffect : MonoBehaviour
 {
     public Image redPanel;
     private Color color;
+    float newAlpha;
 
     private void Awake()
     {
@@ -17,10 +18,18 @@ public class DamageEffect : MonoBehaviour
         color = new Color(color.r, color.g, color.b, 0.5f);
     }
 
+    private void Update()
+    {
+        newAlpha = Mathf.Lerp(newAlpha, 0, 7 * Time.deltaTime);
+        redPanel.color = new Color(redPanel.color.r, redPanel.color.g, redPanel.color.b, newAlpha);
+    }
+
     public void RedFlash()
     {
+        //redPanel.DOKill();
         redPanel.color = color;
-        redPanel.DOFade(0, 0.3f);
+        newAlpha = 0.5f;
+        //redPanel.DOFade(0, 0.3f);
     }
 
 }

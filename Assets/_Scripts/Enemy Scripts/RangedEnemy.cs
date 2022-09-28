@@ -7,7 +7,7 @@ using TMPro;
 public class RangedEnemy : EnemyBase
 {
     bool isGrounded;
-    bool canChangeStates;
+    bool canChangeStates = true;
     public bool canGroundCheck = true;
     GameObject player;
     Transform playerTransform;
@@ -92,46 +92,61 @@ public class RangedEnemy : EnemyBase
     //    navAgent.updatePosition = toggle;
     //}
 
-    public void DisabledGroundCheck()
+    public void DisableGroundCheck()
     {
         canGroundCheck = false;
         isGrounded = false;
-        navAgent.enabled = false;
+        //navAgent.enabled = false;
         //currentState = State.Stunned;
         //navAgent.updatePosition = false;
-        Invoke("ReenabledGC", 3);
+        Invoke("ReenabledGC", 1f);
     }
 
     public void ReenabledGC()
     {
         canGroundCheck = true;
-        navAgent.enabled = true; //SO TURNING OFF THE GODDAMN FUCKING NAVAGENT JUST WORKS.... FIGURE THIS SHIT OUT TOMORROW.
+        //navAgent.enabled = true; //SO TURNING OFF THE GODDAMN FUCKING NAVAGENT JUST WORKS.... FIGURE THIS SHIT OUT TOMORROW.
         //navAgent.updatePosition = true;
 
+    }
+
+    public override void Knockback(Vector3 dir, float force, float upForce)
+    {
+        DisableGroundCheck();
+        isGrounded = false;
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.AddForce(dir * force, ForceMode.Impulse);
+        rb.AddForce(transform.up * upForce, ForceMode.Impulse);
     }
 
     private void Update()
     {
         if (canGroundCheck)
         {
-            isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.5f, ~whatIsNotGround);
+            isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.4f, ~whatIsNotGround);
         }
 
         //isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.5f, ~whatIsNotGround);
 
         if (isGrounded)
         {
-            rb.drag = 10;
-            canChangeStates = true;
-            navAgent.updatePosition = true;
+            rb.drag = 1;
+            navAgent.enabled = true;
+
+            //canChangeStates = true;
+            //navAgent.updatePosition = true;
         }
         else
         {
             rb.drag = 0;
-            canChangeStates = false;
-            //currentState = State.Stunned;
-            //navAgent.nextPosition = transform.position;
-            navAgent.updatePosition = false;
+            navAgent.enabled = false;
+            rb.velocity = Vector3.Lerp(rb.velocity, new Vector3(0, rb.velocity.y, 0), 1 * Time.deltaTime);
+            rb.AddForce(Vector3.down * 5, ForceMode.Force);
+            //canChangeStates = false;
+            ////currentState = State.Stunned;
+            ////navAgent.nextPosition = transform.position;
+            //navAgent.updatePosition = false;
         }
 
 
@@ -146,7 +161,7 @@ public class RangedEnemy : EnemyBase
         {
             currentState = State.Disabled;
         }
-        else if(canChangeStates)
+        else if(canChangeStates && isGrounded)
         {
             switch (currentState)
             {

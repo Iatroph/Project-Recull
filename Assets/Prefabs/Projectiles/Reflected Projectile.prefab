@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 2181093712619701136}
   - component: {fileID: 2181093712619701137}
   - component: {fileID: 2181093712619701229}
-  - component: {fileID: 2181093712619701228}
   - component: {fileID: 4031108039554334593}
-  m_Layer: 12
-  m_Name: Enemy Projectile
+  - component: {fileID: -6293857199909641852}
+  m_Layer: 10
+  m_Name: Reflected Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 578350840ca3c794797354f49a3cbd43, type: 2}
+  - {fileID: 2100000, guid: 8a43c4d8533925648a0afcb28c343de8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -116,20 +116,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!114 &2181093712619701228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2181093712619701138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0abeda217b29b0b47aab66371a11e269, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  impactParticle: {fileID: 5073779610854517436, guid: e96cdfb25c26af94687128dd5b0f47e4, type: 3}
-  speed: 30
 --- !u!96 &4031108039554334593
 TrailRenderer:
   serializedVersion: 2
@@ -202,8 +188,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0, b: 0, a: 1}
-      key1: {r: 1, g: 0, b: 0, a: 1}
+      key0: {r: 0.28235295, g: 1, b: 1, a: 1}
+      key1: {r: 0.28235295, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -238,3 +224,17 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &-6293857199909641852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2181093712619701138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d2c1bd343ffbf74db94a2601493a16f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impactParticle: {fileID: 5073779610854517436, guid: 6a8ff4c182d30c943a6ae0a3b5601ac9, type: 3}
+  speed: 45

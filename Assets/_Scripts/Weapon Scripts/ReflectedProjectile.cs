@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyProjectile : MonoBehaviour
-{    
+public class ReflectedProjectile : MonoBehaviour
+{
     Rigidbody rb;
     [Header("References")]
     public GameObject impactParticle;
@@ -11,7 +11,6 @@ public class EnemyProjectile : MonoBehaviour
     public float speed;
     [HideInInspector]
     public float damage { get; set; }
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -23,12 +22,13 @@ public class EnemyProjectile : MonoBehaviour
         Destroy(gameObject, 10);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other) //REDO BULLET COLLECTION COLLIDERS
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.GetComponent<Hurtbox>())
         {
             GameObject impact = Instantiate(impactParticle, transform.position, Quaternion.identity);
-            other.gameObject.GetComponent<PlayerStats>().TakeDamage(damage);
+            Hurtbox hb = other.gameObject.GetComponent<Hurtbox>();
+            hb.AdjustDamage(damage);
             Destroy(gameObject);
         }
         else
@@ -38,6 +38,4 @@ public class EnemyProjectile : MonoBehaviour
         }
 
     }
-
-
 }
