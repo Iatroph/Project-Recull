@@ -7,10 +7,13 @@ public class PlayerWeaponManager : MonoBehaviour
 {
     public WeaponBase[] weaponArray = new WeaponBase[3];
     [SerializeField] private WeaponBase currentWeapon;
-    private int currentWeaponIndex;
+    [SerializeField] private int currentWeaponIndex;
     [SerializeField] private int numberOfWeapons;
 
     private float globalRecallTimer;
+
+    [Header("References")]
+    public GameObject gunHolder;
 
     [Header("Global Recall")]
     public float globalRecallTime;
@@ -167,12 +170,6 @@ public class PlayerWeaponManager : MonoBehaviour
             globalRecallTimer = globalRecallTime;
         }
 
-
-        //if (Input.GetKeyDown(recallKey) && currentWeapon.canRecall)
-        //{
-        //    currentWeapon.Recall();
-        //}
-
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             NumSwapWeapons(0);
@@ -208,6 +205,26 @@ public class PlayerWeaponManager : MonoBehaviour
                 currentWeapon = weaponArray[index];
                 currentWeapon.ToggleMesh();
                 currentWeapon.PlaySwitchAnimation();
+            }
+        }
+    }
+
+    public void EquipWeaponDirectly(GameObject weapon)
+    {
+        for(int i = 0; i < weaponArray.Length; i++)
+        {
+            if(weaponArray[i] == null)
+            {
+                GameObject gun = Instantiate(weapon, gunHolder.transform.position, Quaternion.identity);
+                gun.name = weapon.name;
+                gun.transform.SetParent(gunHolder.transform);
+                currentWeaponIndex = i;
+                weaponArray[i] = gun.GetComponent<WeaponBase>();
+                currentWeapon = weaponArray[currentWeaponIndex];
+                currentWeapon.PlaySwitchAnimation();
+                AddWeapon();
+                return;
+
             }
         }
     }

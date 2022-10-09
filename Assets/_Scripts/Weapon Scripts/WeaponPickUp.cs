@@ -22,7 +22,9 @@ public class WeaponPickUp : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-
+            Debug.Log("Player picked up " + name);
+            other.gameObject.GetComponent<PlayerWeaponManager>().EquipWeaponDirectly(weaponPrefab);
+            gameObject.SetActive(false);
         }
     }
 }
