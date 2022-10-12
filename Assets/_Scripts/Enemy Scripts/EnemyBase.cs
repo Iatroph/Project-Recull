@@ -15,7 +15,7 @@ public class EnemyBase : MonoBehaviour, IDamageable
 
     [Header("Enemy Stats")]
     public float maxHealth;
-    public float currentHealth;
+    private float currentHealth;
 
     [Header("Debugging")]
     public TMP_Text healthText;

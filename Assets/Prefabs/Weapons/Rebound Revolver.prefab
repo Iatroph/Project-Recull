@@ -152,7 +152,7 @@ MonoBehaviour:
   infiniteAmmo: 0
   ignore:
     serializedVersion: 2
-    m_Bits: 32128
+    m_Bits: 64896
   firedProjectiles: []
   muzzleFlashParticle: {fileID: 433813047244650698, guid: 2b30b6bbc82831548890fbae1c6c6ada, type: 3}
   muzzleFlashSpawn: {fileID: 2788868830433891648}

@@ -54,8 +54,8 @@ public class PlayerCamera : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX; //Left & Right
-        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY; //Up & Down
+        float mouseX = Input.GetAxisRaw("Mouse X") * sensX; //Left & Right
+        float mouseY = Input.GetAxisRaw("Mouse Y") * sensY; //Up & Down
 
         //Sets rotation of the Y-Axis to the input from mouseX
         yRotation += mouseX;

@@ -11,6 +11,7 @@ public class PlayerWeaponManager : MonoBehaviour
     [SerializeField] private int numberOfWeapons;
 
     private float globalRecallTimer;
+    private bool allowRecall = true;
 
     [Header("References")]
     public GameObject gunHolder;
@@ -58,6 +59,18 @@ public class PlayerWeaponManager : MonoBehaviour
                 }
             }
         }
+
+        //if (numberOfWeapons == 0)
+        //{
+        //    ammoText.gameObject.SetActive(false);
+        //    recallText.gameObject.SetActive(false);
+        //}
+        //else
+        //{
+        //    ammoText.gameObject.SetActive(true);
+        //    recallText.gameObject.SetActive(true);
+        //}
+
     }
 
     // Update is called once per frame
@@ -145,7 +158,7 @@ public class PlayerWeaponManager : MonoBehaviour
             currentWeapon.ShootFromInput();
         }
 
-        if (Input.GetKey(recallKey) && currentWeapon != null)
+        if (Input.GetKey(recallKey) && currentWeapon != null && allowRecall)
         {
             globalRecallTimer -= Time.deltaTime;
             if (globalRecallTimer <= 0)
@@ -161,7 +174,7 @@ public class PlayerWeaponManager : MonoBehaviour
             }
 
         }
-        else if (Input.GetKeyUp(recallKey) && currentWeapon != null)
+        else if (Input.GetKeyUp(recallKey) && currentWeapon != null && allowRecall)
         {
             if (currentWeapon.canRecall)
             {
@@ -215,6 +228,10 @@ public class PlayerWeaponManager : MonoBehaviour
         {
             if(weaponArray[i] == null)
             {
+                if(weaponArray[currentWeaponIndex] != null)
+                {
+                    currentWeapon.ToggleMesh();
+                }
                 GameObject gun = Instantiate(weapon, gunHolder.transform.position, Quaternion.identity);
                 gun.name = weapon.name;
                 gun.transform.SetParent(gunHolder.transform);
@@ -228,6 +245,17 @@ public class PlayerWeaponManager : MonoBehaviour
             }
         }
     }
+
+    public WeaponBase GetCurrentWeapon()
+    {
+        return currentWeapon;
+    }
+
+    public void ToggleAllowRecall()
+    {
+        allowRecall = !allowRecall;
+    }
+
 
     public void UpdateAmmo()
     {

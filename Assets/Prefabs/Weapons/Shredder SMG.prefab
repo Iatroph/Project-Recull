@@ -52,7 +52,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5153976068838136509}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -139,7 +139,7 @@ MonoBehaviour:
   infiniteAmmo: 0
   ignore:
     serializedVersion: 2
-    m_Bits: 3328
+    m_Bits: 52480
   firedProjectiles: []
   muzzleFlashParticle: {fileID: 8296147123400778532, guid: dfc6c1ebe9853bf4db017622a0f7af7a, type: 3}
   muzzleFlashSpawn: {fileID: 5424568419575571769}

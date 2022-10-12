@@ -33,7 +33,6 @@ public class Revolver : WeaponBase
             anim.SetBool("IsMoving", false);
         }
 
-        Debug.Log(currentAmmo);
     }
 
     public override void Shoot()
