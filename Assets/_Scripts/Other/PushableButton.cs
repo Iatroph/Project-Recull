@@ -27,7 +27,8 @@ public class PushableButton : MonoBehaviour, IInteractable
         Debug.Log("Button Pressed");
         overHeadLight.GetComponent<Light>().DOIntensity(0, 0.5f);
         //overHeadLight.SetActive(false);
-        slidingDoor.transform.DOMoveY(slidingDoor.transform.position.y + 4, 1);
+        buttonEvent.Invoke();
+        //slidingDoor.transform.DOMoveY(slidingDoor.transform.position.y + 4, 1);
         transform.DOMoveY(transform.position.y - 0.5f, 1f);
     }
 }

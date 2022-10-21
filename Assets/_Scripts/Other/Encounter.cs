@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Encounter : MonoBehaviour
 {
     public EnemySpawn[] spawnLocations;
     public List<GameObject> enemies;
     private bool isTriggered = false;
+    bool encounterFinished = false;
+    bool encounterStarted = false;
+
+    public UnityEvent encounterStart;
+    public UnityEvent afterEncounter;
 
     private void Update()
     {
@@ -17,9 +23,21 @@ public class Encounter : MonoBehaviour
                 if(g == null)
                 {
                     enemies.Remove(g);
+                    if(enemies.Count == 0)
+                    {
+                        encounterFinished = true;
+                    }
                     break;
                 }
             }
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if(isTriggered && encounterFinished)
+        {
+            afterEncounter.Invoke();
         }
     }
 

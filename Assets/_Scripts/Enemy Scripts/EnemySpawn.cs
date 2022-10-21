@@ -7,7 +7,6 @@ public class EnemySpawn : MonoBehaviour
     public GameObject enemy;
     public float spawnDelay;
 
-
     public GameObject Spawn()
     {
         GameObject spawnedEnemy = Instantiate(enemy, transform.position, transform.rotation);

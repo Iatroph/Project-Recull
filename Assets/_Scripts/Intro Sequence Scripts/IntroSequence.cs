@@ -79,6 +79,7 @@ public class IntroSequence : MonoBehaviour
         PressToRecall.gameObject.SetActive(false);
         PWM.ToggleAllowRecall();
         revolver.Recall();
+        recallTimer.SetActive(true);
         Time.timeScale = 1;
         yield return null;
     }
