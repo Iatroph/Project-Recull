@@ -12,6 +12,8 @@ public class HeavyRangedEnemy : EnemyBase
 
     bool playerInRange;
 
+    bool canSeePlayer;
+
     bool isAttacking;
 
     float attackTimer;
@@ -38,6 +40,9 @@ public class HeavyRangedEnemy : EnemyBase
     [Header("NavAgent Parameters")]
     public float pursueSpeed;
 
+    [Header("Layermasks")]
+    public LayerMask ignore;
+
     new void Awake()
     {
         base.Awake();
@@ -54,14 +59,26 @@ public class HeavyRangedEnemy : EnemyBase
         distanceFromPlayer = Vector3.Distance(player.transform.position, transform.position);
         directionToPlayer = player.transform.position - transform.position;
 
+        if (Physics.Raycast(transform.position, directionToPlayer, out RaycastHit hit, 50, ~ignore))
+        {
+            if (hit.transform.CompareTag("Player"))
+            {
+                canSeePlayer = true;
+            }
+            else
+            {
+                canSeePlayer = false;
+            }
+        }
+
         if (!isDisabled)
         {
-            if (distanceFromPlayer < pursueRange)
+            if (distanceFromPlayer < pursueRange && canSeePlayer)
             {
                 AttackingState();
             }
 
-            if (distanceFromPlayer > pursueRange && !isAttacking)
+            if ((distanceFromPlayer > pursueRange && !isAttacking) || !canSeePlayer)
             {
                 PursueState();
             }

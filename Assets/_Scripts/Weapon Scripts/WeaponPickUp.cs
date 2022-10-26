@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class WeaponPickUp : MonoBehaviour
 {
     public GameObject weaponPrefab;
+
+    public UnityEvent onPickUp;
 
     // Start is called before the first frame update
     void Start()
@@ -27,10 +30,12 @@ public class WeaponPickUp : MonoBehaviour
             other.gameObject.GetComponent<PlayerWeaponManager>().EquipWeaponDirectly(weaponPrefab);
             gameObject.SetActive(false);
 
-            if(SceneManager.GetActiveScene().buildIndex == 1)
-            {
-                IntroSequence.instance.EnableAmmoCounter();
-            }
+            onPickUp.Invoke();
+
+            //if(SceneManager.GetActiveScene().buildIndex == 1)
+            //{
+            //    IntroSequence.instance.EnableAmmoCounter();
+            //}
         }
     }
 }

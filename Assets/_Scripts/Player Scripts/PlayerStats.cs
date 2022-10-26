@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class PlayerStats : MonoBehaviour
 
     [Header("UI")]
     public TMP_Text healthText;
+    public Slider healthSlider;
     public DamageEffect de;
 
     [Header("Debugging")]
@@ -24,17 +26,19 @@ public class PlayerStats : MonoBehaviour
 
     private void Awake()
     {
+        healthSlider.maxValue = maxHealth;
+        healthSlider.value = maxHealth;
         currentHealth = maxHealth;
-        healthText.text = "Health: " + currentHealth;
+        healthText.text = "" + currentHealth;
         iFramesTimer = iFramesTime;
     }
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.F))
-        //{
-        //    TakeDamage(10);
-        //}
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            TakeDamage(10);
+        }
 
         IFrameTimer();
     }
@@ -64,7 +68,8 @@ public class PlayerStats : MonoBehaviour
                 currentHealth = 0;
                 Debug.Log("Player is Dead");
             }
-            healthText.text = "Health: " + currentHealth;
+            healthText.text = "" + currentHealth;
+            healthSlider.value = currentHealth;
 
         }
     }

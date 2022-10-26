@@ -9,6 +9,8 @@ public class WaveSpawner : MonoBehaviour
 
     public Wave[] waves;
     bool isTriggered;
+    public UnityEvent whenTriggered;
+
     public UnityEvent afterEncounter;
 
     public IEnumerator SpawnWaves()
@@ -32,6 +34,7 @@ public class WaveSpawner : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player") && isTriggered == false)
         {
+            whenTriggered.Invoke();
             isTriggered = true;
             StartCoroutine(SpawnWaves());
         }

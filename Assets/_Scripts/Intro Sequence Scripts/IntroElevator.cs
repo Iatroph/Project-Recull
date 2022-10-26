@@ -29,7 +29,11 @@ public class IntroElevator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        distance = elevator.transform.position - player.transform.position;
+        if(player != null)
+        {
+            distance = elevator.transform.position - player.transform.position;
+
+        }
 
         if (timer <= 0 && !elevatorTriggered)
         {
@@ -38,6 +42,14 @@ public class IntroElevator : MonoBehaviour
             //door1.transform.DOMoveX(door1.transform.position.x + 1.5f, 1);
             //door2.transform.DOMoveX(door2.transform.position.x - 1.5f, 1);
             StartCoroutine(ElevatorEvent());
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            player = other.gameObject;
         }
     }
 
@@ -70,6 +82,7 @@ public class IntroElevator : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         door1.transform.DOMoveX(door1.transform.position.x - 1.5f, 1);
         door2.transform.DOMoveX(door2.transform.position.x + 1.5f, 1);
+
         invisibleWall.SetActive(false);
 
         yield return null;

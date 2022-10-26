@@ -348,7 +348,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (!OnSlope() || !isGrounded)
         {
-            rb.AddForce(Vector3.down * gravity, ForceMode.Force);
+            rb.AddForce(Vector3.down * gravity, ForceMode.Acceleration);
         }
         else
         {

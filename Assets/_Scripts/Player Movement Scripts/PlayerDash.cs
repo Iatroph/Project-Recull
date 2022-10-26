@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 public class PlayerDash : MonoBehaviour
 {
     //Horizontal Input (A & D)
@@ -29,6 +30,7 @@ public class PlayerDash : MonoBehaviour
     [Header("Dash Recharge")]
     public float dashRechargeTime;
     private float dashRechargeTimer;
+    private float dashTimeAccumulation = 0;
 
     [Header("Keybinds")]
     public KeyCode dashKey = KeyCode.LeftShift;
@@ -37,6 +39,9 @@ public class PlayerDash : MonoBehaviour
     public float dashForwardFov;
     public float dashBackwardFov;
     public float dashFov;
+
+    [Header("UI")]
+    public Slider slidr;
 
     private void Awake()
     {
@@ -52,37 +57,51 @@ public class PlayerDash : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
 
-        if (Input.GetKeyDown(dashKey) && dashCount > 0 && !pm.isSliding)
+        //if (Input.GetKeyDown(dashKey) && dashCount > 0 && !pm.isSliding)
+        //{
+        //    Dash();
+        //}
+
+        if (Input.GetKeyDown(dashKey) && slidr.value >= 1 && !pm.isSliding)
         {
             Dash();
         }
 
-        //if (dashRechargeTimer > 0)
+
+        //if(dashCount < maxDashes)
         //{
         //    dashRechargeTimer -= Time.deltaTime;
+        //    if(dashRechargeTimer <= 0)
+        //    {
+        //        dashCount++;
+        //        dashRechargeTimer = dashRechargeTime;
+        //    }
         //}
 
-        if(dashCount < maxDashes)
+        if (slidr.value < slidr.maxValue)
         {
-            dashRechargeTimer -= Time.deltaTime;
+            slidr.value += dashRechargeTime * Time.deltaTime;
+            dashTimeAccumulation += dashRechargeTime* Time.deltaTime;
 
-            if(dashRechargeTimer <= 0)
+            if(dashTimeAccumulation >= 0.99f)
             {
                 dashCount++;
-                dashRechargeTimer = dashRechargeTime;
+                dashTimeAccumulation = 0;
             }
+            //dashRechargeTimer -= Time.deltaTime;
+            //if (dashRechargeTimer <= 0)
+            //{
+            //    dashCount++;
+            //    dashRechargeTimer = dashRechargeTime;
+            //}
         }
-
-        //if (pm.isGrounded)
-        //{
-        //    dashCount = maxDashes;
-        //}
 
     }
 
     private void Dash()
     {
         dashCount--;
+        slidr.value--;
         //dashRechargeTimer = dashRecharge;
 
         dashDir = pm.moveDir;

@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 public class IntroSequence : MonoBehaviour
 {
     public static IntroSequence instance;
 
+    public GameObject playerHUD;
     public GameObject CyroRoomLight;
     public GameObject playerLight;
+    public Transform cryoChamberGlass;
 
     public GameObject ammoCounter;
     public GameObject recallTimer;
@@ -67,6 +70,11 @@ public class IntroSequence : MonoBehaviour
         yield return new WaitForSeconds(2);
         CyroRoomLight.SetActive(true);
         playerLight.SetActive(true);
+        playerHUD.SetActive(true);
+        yield return new WaitForSeconds(2);
+        cryoChamberGlass.DOLocalMoveZ(cryoChamberGlass.localPosition.z - 7f, 2);
+        //cryoChamberGlass.DOMoveY(cryoChamberGlass.localPosition.y + 7f, 2);
+
 
     }
 
