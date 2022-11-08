@@ -90,7 +90,8 @@ public class SMGProjectile : ProjectileBase
     {
         if (collision.transform.CompareTag("Enemy") && isReturning)
         {
-            collision.transform.GetComponent<IDamageable>().TakeDamage(recallDamage);
+            //collision.transform.GetComponent<IDamageable>().TakeDamage(recallDamage);
+            collision.transform.GetComponent<EnemyBase>().TakeDamage(recallDamage, true);
             GameObject spark = Instantiate(sawSpark, collision.GetContact(0).point, Quaternion.identity);
         }
         else
@@ -111,7 +112,8 @@ public class SMGProjectile : ProjectileBase
             if(tickTimer <= 0)
             {
                 tickTimer = tickTime;
-                collision.transform.GetComponent<IDamageable>().TakeDamage(recallDamage);
+                //collision.transform.GetComponent<IDamageable>().TakeDamage(recallDamage);
+                collision.transform.GetComponent<EnemyBase>().TakeDamage(recallDamage, true);
                 GameObject spark = Instantiate(sawSpark, collision.GetContact(0).point, Quaternion.identity);
 
             }

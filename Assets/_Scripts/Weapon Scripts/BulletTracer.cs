@@ -24,11 +24,6 @@ public class BulletTracer : MonoBehaviour
         Destroy(gameObject, shrinkTime + .05f);
     }
 
-    private void OnDestroy()
-    {
-        DOTween.KillAll();
-    }
-
     private void TweenLineRendererWidth(float f)
     {
         lr.startWidth = f;

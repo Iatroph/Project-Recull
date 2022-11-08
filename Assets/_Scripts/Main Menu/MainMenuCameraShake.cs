@@ -5,36 +5,33 @@ using EZCameraShake;
 
 public class MainMenuCameraShake : MonoBehaviour
 {
-	// Transform of the camera to shake. Grabs the gameObject's transform
-	// if null.
-	public Transform camTransform;
 
-	// How long the object should shake for.
-	public float shakeDuration = 0f;
+	public float magnitude;
+	public float roughness;
+	public float fadeInTime;
+	public float fadeOutTime;
 
-	// Amplitude of the shake. A larger value shakes the camera harder.
-	public float shakeAmount = 0.7f;
-	public float decreaseFactor = 1.0f;
-
-	Vector3 originalPos;
+	public float shakeInterval;
+	private float shakeTimer;
 
 	void Awake()
 	{
-		if (camTransform == null)
-		{
-			camTransform = GetComponent(typeof(Transform)) as Transform;
-		}
+		shakeTimer = shakeInterval;
+		//CameraShaker.Instance.StartShake(0.7f, 0.7f, 1);
+		CameraShaker.Instance.ShakeOnce(magnitude, roughness, fadeInTime, fadeOutTime);
 
-		CameraShaker.Instance.StartShake(0.7f, 0.7f, 1);
-	}
-
-	void OnEnable()
-	{
-		originalPos = camTransform.localPosition;
 	}
 
 	void Update()
 	{
+		shakeTimer -= Time.deltaTime;
+		if(shakeTimer <= 0)
+        {
+			CameraShaker.Instance.ShakeOnce(magnitude, roughness, fadeInTime, fadeOutTime);
+			shakeTimer = shakeInterval;
+        }
+
+
 		//if (shakeDuration > 0)
 		//{
 		//	camTransform.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;

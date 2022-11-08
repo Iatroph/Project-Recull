@@ -39,7 +39,8 @@ public class ShotgunProjectile : ProjectileBase
         
         foreach (Collider c in hitEnemies)
         {
-            c.transform.GetComponent<IDamageable>().TakeDamage(explosionDamage);
+            //c.transform.GetComponent<IDamageable>().TakeDamage(explosionDamage);
+            c.transform.GetComponent<EnemyBase>().TakeDamage(explosionDamage, true);
             Vector3 dir = (c.transform.position - transform.position).normalized;
             if(Physics.Raycast(transform.position, dir, out RaycastHit hit, explosionRadius, whatIsEnemy))
             {

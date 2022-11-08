@@ -28,7 +28,7 @@ public class ReflectedProjectile : MonoBehaviour
         {
             GameObject impact = Instantiate(impactParticle, transform.position, Quaternion.identity);
             Hurtbox hb = other.gameObject.GetComponent<Hurtbox>();
-            hb.AdjustDamage(damage);
+            hb.AdjustDamage(damage, false);
             Destroy(gameObject);
         }
         else

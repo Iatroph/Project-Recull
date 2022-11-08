@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.AI;
 
-public class EnemyBase : MonoBehaviour, IDamageable
+public class EnemyBase : MonoBehaviour
 {
     protected NavMeshAgent navAgent;
 
@@ -16,6 +16,9 @@ public class EnemyBase : MonoBehaviour, IDamageable
     [Header("Enemy Stats")]
     public float maxHealth;
     private float currentHealth;
+
+    [Header("References")]
+    public GameObject healthPickup;
 
     [Header("Debugging")]
     public TMP_Text healthText;
@@ -30,24 +33,39 @@ public class EnemyBase : MonoBehaviour, IDamageable
         }
     }
 
-    public virtual void TakeDamage(float damage)
+    public virtual void TakeDamage(float damage, bool isRecallDamage)
     {
         Debug.Log( gameObject.name + " Took " + damage + " damage");
-        currentHealth -= damage;
-        if (healthText)
-        {
-            healthText.text = "" + currentHealth;
 
-        }
-        if (currentHealth <= 0)
+        if (currentHealth > 0)
         {
-            Die();
+            currentHealth -= damage;
+            if (currentHealth <= 0 && isRecallDamage)
+            {
+                SpawnHealthPickup();
+                Die();
+            }
+            else if(currentHealth <= 0)
+            {
+                Die();
+            }
+
+
+            if (healthText)
+            {
+                healthText.text = "" + currentHealth;
+            }
         }
     }
 
     public virtual void Knockback(Vector3 dir, float force, float upForce)
     {
 
+    }
+
+    public virtual void SpawnHealthPickup()
+    {
+        GameObject healthDrop = Instantiate(healthPickup, transform.position, Quaternion.identity);
     }
 
     public virtual void Die()

@@ -29,8 +29,12 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public bool isSliding;
     bool isHittingWall;
     bool canChangeState;
+    bool allowInput = true;
 
     private float coyoteTimer;
+
+    PlayerDash pd;
+    PlayerSlide ps;
 
     [Header("References")]
     public Camera playerCam;
@@ -233,11 +237,31 @@ public class PlayerMovement : MonoBehaviour
         wallJumpCount = maxWallJumps;
 
         instance = this;
+        pd = GetComponent<PlayerDash>();
+        ps = GetComponent<PlayerSlide>();
+    }
+
+    public void ToggleUserInput(bool toggle)
+    {
+        allowInput = toggle;
+    }
+
+    public void CancelInputs()
+    {
+        horizontalInput = 0;
+        verticalInput = 0;
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        moveDir = Vector3.zero;
     }
 
     private void Update() //ALL INPUTS IN UPDATE
     {
-        UserInput();
+        if (allowInput)
+        {
+            UserInput();
+        }
+
         SpeedControl();
         UpdateMoveState();
         UpdateFriction();
@@ -284,6 +308,22 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+
+        if (Input.GetKeyDown(dashKey))
+        {
+            pd.DashFromInput();
+        }
+
+        if (Input.GetKeyDown(slideKey))
+        {
+            ps.StartSlideFromInput();
+        }
+
+        if (Input.GetKeyUp(slideKey) || Input.GetKeyDown(jumpKey))
+        {
+            ps.StopSlide();
+        }
+
 
         if (isSliding)
         {
@@ -349,11 +389,6 @@ public class PlayerMovement : MonoBehaviour
         if (!OnSlope() || !isGrounded)
         {
             rb.AddForce(Vector3.down * gravity, ForceMode.Acceleration);
-        }
-        else
-        {
-            //rb.AddForce(Vector3.down * 10, ForceMode.Force);
-
         }
 
     }

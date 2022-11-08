@@ -17,6 +17,7 @@ public class PlayerCamera : MonoBehaviour
 
     private float tilt;
     float startOrientation;
+    bool allowInput = true;
 
     [Header("References")]
     public Camera playerCam;
@@ -46,33 +47,45 @@ public class PlayerCamera : MonoBehaviour
         //Cursor.visible = false;
     }
 
+    public void ToggleAllowInput(bool toggle)
+    {
+        allowInput = toggle;
+    }
+
+    public void ResetCamera()
+    {
+        playerCam.transform.rotation = Quaternion.Euler(Vector3.zero);
+    }
+
     private void Update()
     {
 
         CamTilt();
+        if (allowInput)
+        {
+            horizontalInput = Input.GetAxisRaw("Horizontal");
+            verticalInput = Input.GetAxisRaw("Vertical");
 
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
+            float mouseX = Input.GetAxisRaw("Mouse X") * sensX; //Left & Right
+            float mouseY = Input.GetAxisRaw("Mouse Y") * sensY; //Up & Down
 
-        float mouseX = Input.GetAxisRaw("Mouse X") * sensX; //Left & Right
-        float mouseY = Input.GetAxisRaw("Mouse Y") * sensY; //Up & Down
+            //Sets rotation of the Y-Axis to the input from mouseX
+            yRotation += mouseX;
 
-        //Sets rotation of the Y-Axis to the input from mouseX
-        yRotation += mouseX;
+            //Sets rotation of the X-Axis to the input from mouseY
+            xRotation -= mouseY;
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        //Sets rotation of the X-Axis to the input from mouseY
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+            playerCam.transform.localRotation = Quaternion.Euler(xRotation, yRotation, tilt);
+            //orientation.rotation = Quaternion.Euler(0, yRotation, 0);
+            orientation.localRotation = Quaternion.Euler(0, yRotation, 0);
 
-        playerCam.transform.localRotation = Quaternion.Euler(xRotation, yRotation, tilt);
-        //orientation.rotation = Quaternion.Euler(0, yRotation, 0);
-        orientation.localRotation = Quaternion.Euler(0, yRotation, 0);
-
-        //orientation.rotation = Quaternion.Euler(orientation.rotation.x, yRotation, orientation.rotation.z);
-        //orientation.rotation = Quaternion.Euler(0, yRotation + startOrientation, 0);
+            //orientation.rotation = Quaternion.Euler(orientation.rotation.x, yRotation, orientation.rotation.z);
+            //orientation.rotation = Quaternion.Euler(0, yRotation + startOrientation, 0);
 
 
-        playerObj.localRotation = Quaternion.Euler(0, yRotation, 0);
+            playerObj.localRotation = Quaternion.Euler(0, yRotation, 0);
+        }
 
     }
 

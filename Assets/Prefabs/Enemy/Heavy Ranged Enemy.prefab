@@ -776,6 +776,7 @@ MonoBehaviour:
   enemyID: 3
   usesNavMeshAgent: 1
   maxHealth: 450
+  healthPickup: {fileID: 1569438616300886935, guid: 4d8df9b511b040f46a93e57cb035a0f8, type: 3}
   healthText: {fileID: 0}
   isDisabled: 0
   projectile: {fileID: 2181093712619701138, guid: dcf0ccd25d30101499f41ca043956e7e, type: 3}
@@ -800,7 +801,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 956569197516858816}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1
+  m_Radius: 3
   m_Speed: 4
   m_Acceleration: 25
   avoidancePriority: 50

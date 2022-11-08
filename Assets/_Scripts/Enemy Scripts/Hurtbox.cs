@@ -19,12 +19,12 @@ public class Hurtbox : MonoBehaviour
         else
         {
             enemybase = GetComponentInParent<EnemyBase>();
-
         }
     }
 
-    public void AdjustDamage(float damage)
+    public void AdjustDamage(float damage, bool isRecallDamage)
     {
-        enemybase.TakeDamage(damage * damageMultiplier);
+        enemybase.TakeDamage(damage * damageMultiplier, isRecallDamage);
     }
+
 }

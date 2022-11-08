@@ -85,7 +85,7 @@ public class BasicRangedEnemy : EnemyBase
                 PursueState();
             }
 
-            if (distanceFromPlayer < fleeRange)
+            if ((distanceFromPlayer < fleeRange) && canSeePlayer)
             {
                 isFleeing = true;
                 FleeingState();
@@ -93,6 +93,11 @@ public class BasicRangedEnemy : EnemyBase
             else
             {
                 isFleeing = false;
+                //RotateTowardPlayer();
+            }
+
+            if(canSeePlayer && !isFleeing)
+            {
                 RotateTowardPlayer();
             }
 
@@ -107,6 +112,7 @@ public class BasicRangedEnemy : EnemyBase
         {
             Vector3 dirToPlayer = (player.transform.position + new Vector3(0, 0.2f, 0)) - projectileSpawnRight.position;
             GameObject proj = Instantiate(projectile, projectileSpawnRight.position, Quaternion.LookRotation(dirToPlayer));
+            proj.GetComponent<EnemyProjectile>().damage = projectileDamage;
             attackInterval += Random.Range(-attackIntervalModifier, attackIntervalModifier);
             attackTimer = attackInterval;
             attackInterval = baseAttackInterval;

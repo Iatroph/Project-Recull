@@ -261,7 +261,7 @@ GameObject:
   m_Layer: 0
   m_Name: Projectile Spawn
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -350,6 +350,7 @@ MonoBehaviour:
   enemyID: 4
   usesNavMeshAgent: 0
   maxHealth: 50
+  healthPickup: {fileID: 1569438616300886935, guid: 4d8df9b511b040f46a93e57cb035a0f8, type: 3}
   healthText: {fileID: 0}
   isDisabled: 0
   projectile: {fileID: 2181093712619701138, guid: dcf0ccd25d30101499f41ca043956e7e, type: 3}

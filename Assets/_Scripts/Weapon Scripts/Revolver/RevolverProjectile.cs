@@ -162,7 +162,7 @@ public class RevolverProjectile : ProjectileBase
                 {
                     GameObject MuzzleFlash = Instantiate(muzzleFlashParticle, muzzleFlashSpawn.position, Quaternion.identity);
 
-                    hit.transform.gameObject.GetComponent<Hurtbox>().AdjustDamage(recallDamage);
+                    hit.transform.gameObject.GetComponent<Hurtbox>().AdjustDamage(recallDamage, true);
 
                     GameObject tracer = Instantiate(bullerTracer, hit.point, Quaternion.identity);
                     SetTracerLine(tracer.GetComponent<LineRenderer>(), transform.position, hit.point);

@@ -5,6 +5,7 @@ using TMPro;
 
 public class PlayerWeaponManager : MonoBehaviour
 {
+    bool allowInput = true;
     public WeaponBase[] weaponArray = new WeaponBase[3];
     [SerializeField] private WeaponBase currentWeapon;
     [SerializeField] private int currentWeaponIndex;
@@ -73,17 +74,20 @@ public class PlayerWeaponManager : MonoBehaviour
 
     }
 
+    public void ToggleAllowInput(bool toggle)
+    {
+        allowInput = toggle;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        InputManager();
+        if (allowInput)
+        {
+            InputManager();
+        }
         UpdateAmmo();
         UpdateRecallTimer();
-        if(numberOfWeapons > 1)
-        {
-            MouseWheelWeaponSwap();
-
-        }
 
     }
 
@@ -153,10 +157,17 @@ public class PlayerWeaponManager : MonoBehaviour
 
     public void InputManager()
     {
+        if (numberOfWeapons > 1)
+        {
+            MouseWheelWeaponSwap();
+
+        }
+
         if (Input.GetKey(shootButton) && currentWeapon != null)
         {
             currentWeapon.ShootFromInput();
         }
+
 
         if (Input.GetKey(recallKey) && currentWeapon != null && allowRecall)
         {

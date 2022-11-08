@@ -11,6 +11,10 @@ public class PlayerDash : MonoBehaviour
     float verticalInput;
 
     Vector3 dashDir;
+
+    private float currentSliderValue = 2;
+    private float sliderMaxValue = 2;
+
     [HideInInspector]
     public float dashCount;
 
@@ -49,6 +53,12 @@ public class PlayerDash : MonoBehaviour
         pm = GetComponent<PlayerMovement>();
         dashCount = maxDashes;
         dashRechargeTimer = dashRechargeTime;
+
+        if (slidr)
+        {
+            currentSliderValue = slidr.value;
+            sliderMaxValue = slidr.maxValue;
+        }
     }
 
     private void Update()
@@ -62,11 +72,15 @@ public class PlayerDash : MonoBehaviour
         //    Dash();
         //}
 
-        if (Input.GetKeyDown(dashKey) && slidr.value >= 1 && !pm.isSliding)
-        {
-            Dash();
-        }
+        //if (Input.GetKeyDown(dashKey) && currentSliderValue >= 1 && !pm.isSliding)
+        //{
+        //    Dash();
+        //}
 
+        if (slidr)
+        {
+            slidr.value = currentSliderValue;
+        }
 
         //if(dashCount < maxDashes)
         //{
@@ -78,30 +92,47 @@ public class PlayerDash : MonoBehaviour
         //    }
         //}
 
-        if (slidr.value < slidr.maxValue)
-        {
-            slidr.value += dashRechargeTime * Time.deltaTime;
-            dashTimeAccumulation += dashRechargeTime* Time.deltaTime;
+        //if (slidr.value < slidr.maxValue)
+        //{
+        //    slidr.value += dashRechargeTime * Time.deltaTime;
+        //    dashTimeAccumulation += dashRechargeTime* Time.deltaTime;
 
-            if(dashTimeAccumulation >= 0.99f)
+        //    if(dashTimeAccumulation >= 0.99f)
+        //    {
+        //        dashCount++;
+        //        dashTimeAccumulation = 0;
+        //    }
+
+        //}
+
+        if (currentSliderValue < sliderMaxValue)
+        {
+            currentSliderValue += dashRechargeTime * Time.deltaTime;
+            dashTimeAccumulation += dashRechargeTime * Time.deltaTime;
+
+            if (dashTimeAccumulation >= 0.99f)
             {
                 dashCount++;
                 dashTimeAccumulation = 0;
             }
-            //dashRechargeTimer -= Time.deltaTime;
-            //if (dashRechargeTimer <= 0)
-            //{
-            //    dashCount++;
-            //    dashRechargeTimer = dashRechargeTime;
-            //}
+
         }
 
+    }
+
+    public void DashFromInput()
+    {
+        if (currentSliderValue >= 1 && !pm.isSliding)
+        {
+            Dash();
+        }
     }
 
     private void Dash()
     {
         dashCount--;
-        slidr.value--;
+        //slidr.value--;
+        currentSliderValue--;
         //dashRechargeTimer = dashRecharge;
 
         dashDir = pm.moveDir;

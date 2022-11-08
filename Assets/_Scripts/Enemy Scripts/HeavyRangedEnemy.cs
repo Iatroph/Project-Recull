@@ -83,7 +83,10 @@ public class HeavyRangedEnemy : EnemyBase
                 PursueState();
             }
 
-            RotateTowardPlayer();
+            if (canSeePlayer)
+            {
+                RotateTowardPlayer();
+            }
         }
 
     }

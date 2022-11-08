@@ -14,7 +14,12 @@ public class MainMenuElevator : MonoBehaviour
 
 	Vector3 originalPos;
 
-	void Update()
+    private void Awake()
+    {
+		originalPos = transform.position;
+    }
+
+    void Update()
 	{
 		transform.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;
     }

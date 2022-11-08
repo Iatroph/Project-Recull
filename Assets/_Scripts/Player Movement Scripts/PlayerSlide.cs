@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerSlide : MonoBehaviour
 {
     Vector3 slideDir;
+    bool continueSlide;
 
     [Header("References")]
     private PlayerMovement pm;
@@ -44,19 +45,41 @@ public class PlayerSlide : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(slideKey) && !pm.isDashing && !pm.isSliding && pm.isGrounded)
+        //if (Input.GetKeyDown(slideKey) && !pm.isDashing && !pm.isSliding && pm.isGrounded)
+        //{
+        //    StartSlide();
+        //}
+
+        if (pm.isSliding && Input.GetKey(slideKey))
+        {
+            continueSlide = true;
+            //Sliding();
+        }
+        else
+        {
+            continueSlide = false;
+        }
+
+        //if (Input.GetKeyUp(slideKey) || Input.GetKeyDown(pm.jumpKey))
+        //{
+        //    StopSlide();
+        //}
+    }
+
+    public void StartSlideFromInput()
+    {
+        if (!pm.isDashing && !pm.isSliding && pm.isGrounded)
         {
             StartSlide();
         }
+    }
 
-        if(pm.isSliding && Input.GetKey(slideKey))
+
+    private void FixedUpdate()
+    {
+        if (continueSlide)
         {
             Sliding();
-        }
-
-        if (Input.GetKeyUp(slideKey) || Input.GetKeyDown(pm.jumpKey))
-        {
-            StopSlide();
         }
     }
 
@@ -89,7 +112,7 @@ public class PlayerSlide : MonoBehaviour
         }
     }
 
-    private void StopSlide()
+    public void StopSlide()
     {
         StopAllCoroutines();
         StartCoroutine(MoveCamera(playerCam.GetComponent<Camera>(), normalHeight));

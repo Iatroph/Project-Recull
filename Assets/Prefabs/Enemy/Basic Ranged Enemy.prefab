@@ -590,6 +590,7 @@ MonoBehaviour:
   enemyID: 5
   usesNavMeshAgent: 1
   maxHealth: 150
+  healthPickup: {fileID: 1569438616300886935, guid: 4d8df9b511b040f46a93e57cb035a0f8, type: 3}
   healthText: {fileID: 0}
   isDisabled: 0
   projectile: {fileID: 2181093712619701138, guid: dcf0ccd25d30101499f41ca043956e7e, type: 3}
@@ -599,7 +600,7 @@ MonoBehaviour:
   initialAttackInterval: 1
   baseAttackInterval: 2.5
   attackIntervalModifier: 0.5
-  pursueRange: 20
+  pursueRange: 30
   fleeRange: 7
   pursueSpeed: 6
   fleeSpeed: 7
@@ -615,7 +616,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 2134919713290230162}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1
+  m_Radius: 2
   m_Speed: 6
   m_Acceleration: 25
   avoidancePriority: 50

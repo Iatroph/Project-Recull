@@ -63,7 +63,7 @@ public class SMG : WeaponBase
             if (hit.transform.gameObject.GetComponent<Hurtbox>() != null)
             {
                 Hurtbox hb = hit.transform.gameObject.GetComponent<Hurtbox>();
-                hb.AdjustDamage(damage);
+                hb.AdjustDamage(damage, false);
 
                 if (hb.isWeakPoint)
                 {

@@ -107,7 +107,7 @@ public class WeaponBase : MonoBehaviour
 
             if (hit.transform.gameObject.GetComponent<Hurtbox>() != null)
             {
-                hit.transform.gameObject.GetComponent<Hurtbox>().AdjustDamage(damage);
+                hit.transform.gameObject.GetComponent<Hurtbox>().AdjustDamage(damage, false);
             }
 
             GameObject tracer = Instantiate(bulletTracer, projectileSpawnPoint, Quaternion.identity);
@@ -129,7 +129,7 @@ public class WeaponBase : MonoBehaviour
     public virtual void Recall()
     {
 
-        if(currentAmmo < magCapacity && canRecall == true)
+        if((currentAmmo < magCapacity || infiniteAmmo) && canRecall == true)
         {
             canRecall = false;
             recallCooldownTimer = recallCooldown;

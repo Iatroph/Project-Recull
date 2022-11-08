@@ -19,7 +19,7 @@ public class PlayerStats : MonoBehaviour
     [Header("UI")]
     public TMP_Text healthText;
     public Slider healthSlider;
-    public DamageEffect de;
+    public DamageEffect uiEffects;
 
     [Header("Debugging")]
     public bool godMode;
@@ -38,6 +38,11 @@ public class PlayerStats : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             TakeDamage(10);
+        }
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            Heal(10);
         }
 
         IFrameTimer();
@@ -62,7 +67,7 @@ public class PlayerStats : MonoBehaviour
         {
             iFramesOn = true;
             currentHealth -= damage;
-            de.RedFlash();
+            uiEffects.RedFlash();
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
@@ -71,6 +76,22 @@ public class PlayerStats : MonoBehaviour
             healthText.text = "" + currentHealth;
             healthSlider.value = currentHealth;
 
+        }
+    }
+
+    public void Heal(float amount)
+    {
+        if(currentHealth < maxHealth)
+        {
+            if(currentHealth + amount > maxHealth)
+            {
+                amount = maxHealth - currentHealth;
+            }
+
+            uiEffects.GreenFlash();
+            currentHealth += amount;
+            healthText.text = "" + currentHealth;
+            healthSlider.value = currentHealth;
         }
     }
 

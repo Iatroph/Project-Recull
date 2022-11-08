@@ -104,7 +104,7 @@ public class Gun : MonoBehaviour //CONVERT TO BASE CLASS
 
             if (hit.transform.gameObject.GetComponent<Hurtbox>() != null)
             {
-                hit.transform.gameObject.GetComponent<Hurtbox>().AdjustDamage(damage);
+                hit.transform.gameObject.GetComponent<Hurtbox>().AdjustDamage(damage, false);
             }
 
             GameObject trail = Instantiate(bulletTrail, projectileSpawnPoint, Quaternion.identity);
