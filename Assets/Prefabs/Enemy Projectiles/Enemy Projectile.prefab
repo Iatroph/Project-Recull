@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   impactParticle: {fileID: 5073779610854517436, guid: e96cdfb25c26af94687128dd5b0f47e4, type: 3}
-  speed: 40
+  speed: 45
 --- !u!96 &4031108039554334593
 TrailRenderer:
   serializedVersion: 2

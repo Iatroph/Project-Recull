@@ -31,17 +31,5 @@ public class MainMenuCameraShake : MonoBehaviour
 			shakeTimer = shakeInterval;
         }
 
-
-		//if (shakeDuration > 0)
-		//{
-		//	camTransform.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;
-
-		//	shakeDuration -= Time.deltaTime * decreaseFactor;
-		//}
-		//else
-		//{
-		//	shakeDuration = 0f;
-		//	camTransform.localPosition = originalPos;
-		//}
 	}
 }

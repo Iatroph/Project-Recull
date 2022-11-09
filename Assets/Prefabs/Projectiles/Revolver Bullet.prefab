@@ -354,7 +354,7 @@ MonoBehaviour:
     m_Bits: 512
   recallIgnore:
     serializedVersion: 2
-    m_Bits: 3328
+    m_Bits: 64768
   recallTrailColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!96 &8600686671816916666
 TrailRenderer:

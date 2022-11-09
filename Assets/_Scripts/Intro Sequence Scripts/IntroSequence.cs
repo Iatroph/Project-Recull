@@ -10,6 +10,7 @@ public class IntroSequence : MonoBehaviour
 
     public GameObject playerHUD;
     public GameObject CyroRoomLight;
+    public GameObject[] lights;
     public GameObject playerLight;
     public Transform cryoChamberGlass;
 
@@ -31,6 +32,10 @@ public class IntroSequence : MonoBehaviour
     {
         instance = this;
         CyroRoomLight.SetActive(false);
+        foreach(GameObject g in lights)
+        {
+            g.SetActive(false);
+        }
         playerLight.SetActive(false);
         timer = waitTime;
     }
@@ -38,6 +43,10 @@ public class IntroSequence : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (GameManager.instance)
+        {
+            GameManager.instance.DisablePlayerInput();
+        }
         StartCoroutine(TurnOnLight());
     }
 
@@ -68,7 +77,15 @@ public class IntroSequence : MonoBehaviour
     public IEnumerator TurnOnLight()
     {
         yield return new WaitForSeconds(2);
-        CyroRoomLight.SetActive(true);
+        if (GameManager.instance)
+        {
+            GameManager.instance.EnablePlayerInput();
+        }
+        //CyroRoomLight.SetActive(true);
+        foreach (GameObject g in lights)
+        {
+            g.SetActive(true);
+        }
         playerLight.SetActive(true);
         playerHUD.SetActive(true);
         yield return new WaitForSeconds(2);

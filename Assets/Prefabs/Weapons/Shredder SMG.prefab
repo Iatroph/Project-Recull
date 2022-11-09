@@ -135,7 +135,7 @@ MonoBehaviour:
   fireRate: 0.1
   spread: 0.015
   magCapacity: 30
-  recallCooldown: 4
+  recallCooldown: 6
   infiniteAmmo: 0
   ignore:
     serializedVersion: 2

@@ -70,6 +70,10 @@ public class EnemyBase : MonoBehaviour
 
     public virtual void Die()
     {
+        if (GameManager.instance)
+        {
+            GameManager.instance.IncreaseKillCount();
+        }
         Destroy(gameObject);
     }
 

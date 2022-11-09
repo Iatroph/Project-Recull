@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using EZCameraShake;
+
 
 public class PlayerCamera : MonoBehaviour
 {
@@ -54,12 +56,18 @@ public class PlayerCamera : MonoBehaviour
 
     public void ResetCamera()
     {
-        playerCam.transform.rotation = Quaternion.Euler(Vector3.zero);
+        //playerCam.transform.rotation = Quaternion.Euler(Vector3.zero);
+        playerCam.transform.DORotate(Vector3.zero, 0.3f);
+    }
+
+    public void TweenCameraRotation(Vector3 rot)
+    {
+        playerCam.transform.DORotate(rot, 0.3f);
+
     }
 
     private void Update()
     {
-
         CamTilt();
         if (allowInput)
         {

@@ -10,6 +10,12 @@ public class LevelElevator : MonoBehaviour
     public GameObject door2;
 
     public bool isExit;
+    public bool startsClosed;
+    public float shakeAmount = 0.01f;
+
+    Vector3 originalPos;
+
+    private bool shakeElevator = false;
 
     [Header("Positions")]
     public Transform door1Open;
@@ -18,10 +24,25 @@ public class LevelElevator : MonoBehaviour
     public Transform door2Closed;
     public Transform playerPosition;
 
+    private void Awake()
+    {
+        originalPos = transform.position;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (startsClosed)
+        {
+            door1.transform.position = door1Closed.position;
+            door2.transform.position = door2Closed.position;
+            StartCoroutine(StartLevelSequence());
+        }
+        else
+        {
+            door1.transform.position = door1Open.position;
+            door2.transform.position = door2Open.position;
+        }
     }
 
     // Update is called once per frame
@@ -35,6 +56,11 @@ public class LevelElevator : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             CloseDoors();
+        }
+
+        if (shakeElevator)
+        {
+            transform.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;
         }
     }
 
@@ -52,18 +78,24 @@ public class LevelElevator : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && isExit)
         {
             Debug.Log("Player In Elevator");
-            other.gameObject.GetComponent<PlayerMovement>().ToggleUserInput(false);
+            if (GameManager.instance)
+            {
+                //GameManager.instance.LevelEndToggleOff();
+                GameManager.instance.EndLevel();
+            }
+            //other.gameObject.GetComponent<PlayerMovement>().ToggleUserInput(false);            
+            //other.gameObject.GetComponent<PlayerWeaponManager>().ToggleAllowInput(false);
+            //other.gameObject.GetComponent<PlayerCamera>().ToggleAllowInput(false);
+
             other.gameObject.GetComponent<PlayerMovement>().CancelInputs();
             other.gameObject.GetComponent<PlayerSlide>().StopSlide();
-            other.gameObject.GetComponent<PlayerCamera>().ToggleAllowInput(false);
-            other.gameObject.GetComponent<PlayerCamera>().ResetCamera();
-            other.gameObject.GetComponent<PlayerWeaponManager>().ToggleAllowInput(false);
-            //other.gameObject.transform.position = playerPosition.position;
+            other.gameObject.GetComponent<PlayerCamera>().TweenCameraRotation(playerPosition.rotation.eulerAngles);
+
             other.gameObject.transform.DOMove(playerPosition.position, 0.5f);
-            other.gameObject.transform.DORotate(new Vector3(0, playerPosition.rotation.eulerAngles.y, 0), 0.3f);
+            //other.gameObject.transform.DORotate(new Vector3(0, playerPosition.rotation.eulerAngles.y, 0), 0.3f);
             StartCoroutine(EndLevelSequence());
 
         }
@@ -73,5 +105,13 @@ public class LevelElevator : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         CloseDoors();
+        yield return new WaitForSeconds(1.1f);
+        shakeElevator = true;
+    }
+
+    public IEnumerator StartLevelSequence()
+    {
+        yield return new WaitForSeconds(2);
+        OpenDoors();
     }
 }

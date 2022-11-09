@@ -91,6 +91,11 @@ public class PlayerWeaponManager : MonoBehaviour
 
     }
 
+    public void ToggleCurrentWeaponMesh()
+    {
+        currentWeapon.ToggleMesh();
+    }
+
     public void AddWeapon()
     {
         numberOfWeapons++;
@@ -207,6 +212,17 @@ public class PlayerWeaponManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             NumSwapWeapons(2);
+        }
+    }
+
+    public void RecallAll()
+    {
+        foreach (WeaponBase weapon in weaponArray)
+        {
+            if (weapon != null)
+            {
+                weapon.Recall();
+            }
         }
     }
 

@@ -717,7 +717,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 956569197516858818, guid: a73d7a86a8e6d6b4d8aa7cf19dd42628, type: 3}
       propertyPath: isDisabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 956569197516858818, guid: a73d7a86a8e6d6b4d8aa7cf19dd42628, type: 3}
       propertyPath: ignore.m_Bits
@@ -4906,7 +4906,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2134919713290230158, guid: 1098488ef84c4c843b7462e558dcaa32, type: 3}
       propertyPath: isDisabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2134919713290230159, guid: 1098488ef84c4c843b7462e558dcaa32, type: 3}
       propertyPath: m_Radius
