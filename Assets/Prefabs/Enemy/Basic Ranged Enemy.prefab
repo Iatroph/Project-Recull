@@ -95,8 +95,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
+  m_Radius: 0.6
+  m_Height: 2.5
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!114 &2134919711296392358
@@ -338,7 +338,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.6
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2134919712711686542
 MonoBehaviour:
@@ -595,7 +595,7 @@ MonoBehaviour:
   isDisabled: 0
   projectile: {fileID: 2181093712619701138, guid: dcf0ccd25d30101499f41ca043956e7e, type: 3}
   deathExplosionParticle: {fileID: 852106766628859982, guid: 0c537e302ec0f1b488fddb51ea38b168, type: 3}
-  projectileDamage: 10
+  projectileDamage: 15
   projectileSpawnRight: {fileID: 2134919712366938972}
   initialAttackInterval: 1
   baseAttackInterval: 2.5

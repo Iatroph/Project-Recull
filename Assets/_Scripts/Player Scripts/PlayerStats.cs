@@ -37,7 +37,7 @@ public class PlayerStats : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            TakeDamage(10);
+            TakeDamage(100);
         }
 
         if (Input.GetKeyDown(KeyCode.H))
@@ -71,12 +71,22 @@ public class PlayerStats : MonoBehaviour
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
+                Die();
+                if (GameManager.instance)
+                {
+                    GameManager.instance.DeathSequence();
+                }
                 Debug.Log("Player is Dead");
             }
-            healthText.text = "" + currentHealth;
-            healthSlider.value = currentHealth;
+            UpdateUI();
 
         }
+    }
+
+    public void UpdateUI()
+    {
+        healthText.text = "" + currentHealth;
+        healthSlider.value = currentHealth;
     }
 
     public void Heal(float amount)
@@ -90,9 +100,16 @@ public class PlayerStats : MonoBehaviour
 
             uiEffects.GreenFlash();
             currentHealth += amount;
-            healthText.text = "" + currentHealth;
-            healthSlider.value = currentHealth;
+            UpdateUI();
         }
+    }
+
+    public void Die()
+    {
+        transform.rotation = Quaternion.Euler(0, 0, -90f);
+        GetComponent<PlayerCamera>().TweenCameraRotation(new Vector3(Camera.main.transform.rotation.eulerAngles.x, Camera.main.transform.rotation.eulerAngles.y,-90));
+        currentHealth = 0;
+        godMode = true;
     }
 
 }

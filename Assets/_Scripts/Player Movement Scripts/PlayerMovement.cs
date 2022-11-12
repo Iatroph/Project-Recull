@@ -250,6 +250,12 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontalInput = 0;
         verticalInput = 0;
+        moveDir = Vector3.zero;
+        isSliding = false;
+    }
+
+    public void CancelMovement()
+    {
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         moveDir = Vector3.zero;

@@ -93,7 +93,10 @@ public class PlayerWeaponManager : MonoBehaviour
 
     public void ToggleCurrentWeaponMesh()
     {
-        currentWeapon.ToggleMesh();
+        if(currentWeapon != null)
+        {
+            currentWeapon.ToggleMesh();
+        }
     }
 
     public void AddWeapon()

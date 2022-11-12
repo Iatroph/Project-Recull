@@ -22,6 +22,7 @@ public class IntroSequence : MonoBehaviour
     public PlayerWeaponManager PWM;
 
     public TMP_Text PressToRecall;
+    public GameObject introCanvas;
 
     bool ReboundPause = false;
 
@@ -30,6 +31,7 @@ public class IntroSequence : MonoBehaviour
 
     private void Awake()
     {
+        introCanvas.SetActive(false);
         instance = this;
         CyroRoomLight.SetActive(false);
         foreach(GameObject g in lights)
@@ -100,13 +102,28 @@ public class IntroSequence : MonoBehaviour
         ReboundPause = true;
         Time.timeScale = 0;
         PressToRecall.gameObject.SetActive(true);
+        introCanvas.SetActive(true);
+        StartCoroutine(RecallTextFlicker());
         yield return waitForKeyPress(KeyCode.R);
         PressToRecall.gameObject.SetActive(false);
+        introCanvas.SetActive(false);
         PWM.ToggleAllowRecall();
         revolver.Recall();
         recallTimer.SetActive(true);
         Time.timeScale = 1;
         yield return null;
+    }
+
+    public IEnumerator RecallTextFlicker()
+    {
+        while (ReboundPause)
+        {
+            yield return new WaitForSecondsRealtime(0.5f);
+            PressToRecall.text = "PRESS \"R\" TO <color=\"red\">RECALL!";
+            yield return new WaitForSecondsRealtime(0.8f);
+            PressToRecall.text = "PRESS \"R\" TO <color=\"red\">RELOAD?";
+
+        }
     }
 
     private IEnumerator waitForKeyPress(KeyCode key)
