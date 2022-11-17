@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+
+    bool canGroundCheck = true;
+
     public static PlayerMovement instance;
+
+    private AudioSource source;
 
     //Horizontal Input (A & D)
     float horizontalInput;
@@ -81,6 +86,10 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode slideKey = KeyCode.LeftControl;
     public KeyCode dashKey = KeyCode.LeftShift;
+
+    [Header("Sound Effects")]
+    public AudioClip jumpSound;
+    public AudioClip doubleJump;
 
     [Header("Other Parameters")]
     public float gravity;
@@ -227,6 +236,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        source = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         rb.useGravity = false;
@@ -275,7 +285,11 @@ public class PlayerMovement : MonoBehaviour
         WallCheck();
 
         //isGrounded = Physics.CheckSphere(transform.position - new Vector3(0, .63f, 0), 0.4f, ~whatIsNotGround);
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, 2 * 0.5f + 0.4f, ~whatIsNotGround);
+        if (canGroundCheck)
+        {
+            isGrounded = Physics.Raycast(transform.position, Vector3.down, 2 * 0.5f + 0.4f, ~whatIsNotGround);
+
+        }
 
 
         //Debug.Log(movestate);
@@ -434,21 +448,39 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
+        //source.PlayOneShot(jumpSound);
+        //AudioManager.instance.PlaySoundOneShot(jumpSound);
         exitingSlope = true;
         rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         hasUsedCoyoteTime = true;
         isGrounded = false;
+        //DisableGroundCheck();
         directlyChangeMovementState(MoveState.airborne);
         Invoke(nameof(ResetJump), jumpCoolDown);
     }
     private void DoubleJump()
     {
+        //AudioManager.instance.PlaySoundOneShot(doubleJump);
+
         exitingSlope = true;
         rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
         rb.AddForce(Vector3.up * doubleJumpForce, ForceMode.Impulse);
         Invoke(nameof(ResetJump), jumpCoolDown);
         canDoubleJump = false;
+    }
+
+    public void DisableGroundCheck()
+    {
+        canGroundCheck = false;
+        isGrounded = false;
+        Invoke("ReenabledGC", 0.1f);
+    }
+
+    public void ReenabledGC()
+    {
+        canGroundCheck = true;
+
     }
 
     private void ResetJump()

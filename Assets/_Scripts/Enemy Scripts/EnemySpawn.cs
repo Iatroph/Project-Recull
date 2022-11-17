@@ -6,6 +6,12 @@ public class EnemySpawn : MonoBehaviour
 {
     public GameObject enemy;
     public float spawnDelay;
+    public GameObject worldCube;
+
+    private void Start()
+    {
+        worldCube.SetActive(false);
+    }
 
     public GameObject Spawn()
     {

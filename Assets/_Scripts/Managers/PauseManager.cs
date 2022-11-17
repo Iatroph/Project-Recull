@@ -8,6 +8,8 @@ public class PauseManager : MonoBehaviour
 {
     public GameObject pauseCanvas;
     bool isGamePaused = false;
+    [HideInInspector]
+    public bool canPause = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +19,7 @@ public class PauseManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && canPause)
         {
             if (!isGamePaused)
             {
@@ -26,6 +28,18 @@ public class PauseManager : MonoBehaviour
             else if (isGamePaused)
             {
                 UnPauseGame();
+            }
+        }
+
+        if (GameManager.instance)
+        {
+            if(GameManager.instance.isPlayerDead || GameManager.instance.levelComplete)
+            {
+                canPause = false;
+            }
+            else
+            {
+                canPause = true;
             }
         }
     }

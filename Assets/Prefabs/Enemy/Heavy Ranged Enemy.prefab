@@ -787,7 +787,7 @@ MonoBehaviour:
   initialAttackInterval: 1
   baseAttackInterval: 3
   attackIntervalModifier: 0.5
-  pursueRange: 30
+  pursueRange: 40
   pursueSpeed: 4
   ignore:
     serializedVersion: 2

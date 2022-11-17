@@ -11,6 +11,7 @@ public class LevelElevator : MonoBehaviour
 
     public bool isExit;
     public bool startsClosed;
+    public bool introSequence = true;
     public float shakeAmount = 0.01f;
 
     Vector3 originalPos;
@@ -36,27 +37,31 @@ public class LevelElevator : MonoBehaviour
         {
             door1.transform.position = door1Closed.position;
             door2.transform.position = door2Closed.position;
-            StartCoroutine(StartLevelSequence());
         }
         else
         {
             door1.transform.position = door1Open.position;
             door2.transform.position = door2Open.position;
         }
+
+        if (introSequence)
+        {
+            StartCoroutine(StartLevelSequence());
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            OpenDoors();
-        }
+        //if (Input.GetKeyDown(KeyCode.O))
+        //{
+        //    OpenDoors();
+        //}
 
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            CloseDoors();
-        }
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    CloseDoors();
+        //}
 
         if (shakeElevator)
         {
@@ -111,7 +116,23 @@ public class LevelElevator : MonoBehaviour
 
     public IEnumerator StartLevelSequence()
     {
+        if (GameManager.instance)
+        {
+            GameManager.instance.DisablePlayerInput();
+            GameManager.instance.ToggleHUD(false);
+            GameManager.instance.ToggleWeaponMesh();
+        }
+        shakeElevator = true;
         yield return new WaitForSeconds(2);
+        shakeElevator = false;
+        yield return new WaitForSeconds(1);
         OpenDoors();
+        if (GameManager.instance)
+        {
+            GameManager.instance.EnablePlayerInput();
+            GameManager.instance.ToggleHUD(true);
+            GameManager.instance.ToggleWeaponMesh();
+            GameManager.instance.player.GetComponent<PlayerWeaponManager>().GetCurrentWeapon().PlaySwitchAnimation();
+        }
     }
 }

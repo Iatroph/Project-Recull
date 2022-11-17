@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1337621934714256818}
   - component: {fileID: 1337621934714256819}
   - component: {fileID: 1337621934714256816}
-  - component: {fileID: 1337621934714256817}
+  - component: {fileID: 5697502755919339036}
   m_Layer: 0
   m_Name: Multi-Square Tile 5
   m_TagString: Untagged
@@ -330,8 +330,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1337621934714256462}
   m_Mesh: {fileID: 0}
---- !u!64 &1337621934714256817
-MeshCollider:
+--- !u!65 &5697502755919339036
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -340,7 +340,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 2
+  m_Size: {x: 4, y: 0.5, z: 4}
+  m_Center: {x: 0, y: 0, z: 0}

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 293287548636079388}
   - component: {fileID: 293287548636079387}
   - component: {fileID: 293287548636079386}
-  - component: {fileID: 293287548636079385}
+  - component: {fileID: 6229933600199991436}
   m_Layer: 0
   m_Name: Track Tile 1
   m_TagString: Untagged
@@ -330,8 +330,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 293287548636079399}
   m_Mesh: {fileID: 0}
---- !u!64 &293287548636079385
-MeshCollider:
+--- !u!65 &6229933600199991436
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -340,7 +340,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 2
+  m_Size: {x: 4, y: 0.5, z: 4}
+  m_Center: {x: 0, y: 0, z: 0}

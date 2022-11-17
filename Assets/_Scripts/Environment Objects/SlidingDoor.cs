@@ -70,4 +70,12 @@ public class SlidingDoor : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (isAutomaticDoor && other.gameObject.CompareTag("Player") && !isLocked)
+        {
+            SlideUp();
+        }
+    }
+
 }

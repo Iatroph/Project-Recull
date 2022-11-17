@@ -19,10 +19,10 @@ public class TeleportPlayer : MonoBehaviour
     {
         //float distance = Vector3.Distance(player.transform.position, teleportPos.position);
         distance = elevator.transform.position - player.transform.position;
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            player.transform.position = teleportPos.position - distance;
-            elevator.transform.position = teleportPos.position;
-        }
+        //if (Input.GetKeyDown(KeyCode.T))
+        //{
+        //    player.transform.position = teleportPos.position - distance;
+        //    elevator.transform.position = teleportPos.position;
+        //}
     }
 }

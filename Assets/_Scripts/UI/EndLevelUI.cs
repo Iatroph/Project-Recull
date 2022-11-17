@@ -17,6 +17,11 @@ public class EndLevelUI : MonoBehaviour
     private TMP_Text timeText;
     private TMP_Text killsText;
 
+    [Header("Buttons")]
+    public GameObject continueButton;
+    public GameObject returnButton;
+
+
 
     private void Awake()
     {
@@ -27,6 +32,9 @@ public class EndLevelUI : MonoBehaviour
         floor.SetActive(false);
         time.SetActive(false);
         kills.SetActive(false);
+
+        continueButton.SetActive(false);
+        returnButton.SetActive(false);
     }
 
     // Start is called before the first frame update
@@ -54,5 +62,11 @@ public class EndLevelUI : MonoBehaviour
         time.SetActive(true);
         yield return new WaitForSeconds(0.2f);
         kills.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        continueButton.SetActive(true);
+        returnButton.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
     }
 }

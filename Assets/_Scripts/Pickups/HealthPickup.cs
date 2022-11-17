@@ -27,7 +27,7 @@ public class HealthPickup : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        Debug.Log("HELLO!!!???");
+        //Debug.Log("HELLO!!!???");
         if (other.gameObject.CompareTag("Bullet Collection"))
         {
             Player.GetComponent<PlayerStats>().Heal(healAmount);

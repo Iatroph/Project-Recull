@@ -7,9 +7,11 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    private int currentLevelIndex;
 
-    private bool levelComplete;
-    private bool isPlayerDead = false;
+    [HideInInspector]
+    public bool levelComplete;
+    public bool isPlayerDead = false;
 
     [Header("References")]
     public GameObject player;
@@ -31,6 +33,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
+
         instance = this;
         deathCanvas.SetActive(false);
 
@@ -97,7 +101,7 @@ public class GameManager : MonoBehaviour
 
     public void ToggleHUD(bool toggle)
     {
-        playerHUD.SetActive(false);
+        playerHUD.SetActive(toggle);
     }
 
     public void ToggleWeaponMesh()
@@ -108,6 +112,21 @@ public class GameManager : MonoBehaviour
     public void IncreaseKillCount()
     {
         enemyKills++;
+    }
+
+    public void LoadNextLevel()
+    {
+        if (currentLevelIndex + 1 < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(currentLevelIndex + 1);
+            Time.timeScale = 1;
+        }
+    }
+
+    public void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene(0);
+        Time.timeScale = 1;
     }
 
 
@@ -123,15 +142,11 @@ public class GameManager : MonoBehaviour
 
         if (isPlayerDead)
         {
-            if (Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.R) || Input.GetMouseButtonDown(0))
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                SceneManager.LoadScene(currentLevelIndex);
             }
 
-            if (Input.GetMouseButtonDown(0))
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            }
         }
 
     }

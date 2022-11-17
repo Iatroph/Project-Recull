@@ -589,7 +589,7 @@ MonoBehaviour:
   enemyName: Basic Ranged Enemy
   enemyID: 5
   usesNavMeshAgent: 1
-  maxHealth: 150
+  maxHealth: 125
   healthPickup: {fileID: 1569438616300886935, guid: 4d8df9b511b040f46a93e57cb035a0f8, type: 3}
   healthText: {fileID: 0}
   isDisabled: 0
@@ -601,7 +601,7 @@ MonoBehaviour:
   baseAttackInterval: 2.5
   attackIntervalModifier: 0.5
   pursueRange: 30
-  fleeRange: 7
+  fleeRange: 5
   pursueSpeed: 6
   fleeSpeed: 7
   ignore:

@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 5503050951135329747}
   - component: {fileID: 7762575074088651014}
   - component: {fileID: 7762575074088651015}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Shotgun Pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,3 +241,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponPrefab: {fileID: 3985033710598450821, guid: ab892a9c6a4acaa42ba2c8b41a7acd43, type: 3}
+  onPickUp:
+    m_PersistentCalls:
+      m_Calls: []
