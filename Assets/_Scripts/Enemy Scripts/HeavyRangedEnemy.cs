@@ -7,6 +7,8 @@ using UnityEngine.AI;
 public class HeavyRangedEnemy : EnemyBase
 {
     GameObject player;
+    Transform raycastTarget;
+
     private float distanceFromPlayer;
     private Vector3 directionToPlayer;
 
@@ -48,6 +50,8 @@ public class HeavyRangedEnemy : EnemyBase
         base.Awake();
         navAgent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
+        raycastTarget = GameObject.FindGameObjectWithTag("Raycast Target").transform;
+
         navAgent.speed = pursueSpeed;
         attackInterval = initialAttackInterval;
         attackTimer = attackInterval;
@@ -57,7 +61,7 @@ public class HeavyRangedEnemy : EnemyBase
     void Update()
     {
         distanceFromPlayer = Vector3.Distance(player.transform.position, transform.position);
-        directionToPlayer = player.transform.position - transform.position;
+        directionToPlayer = raycastTarget.position - transform.position;
 
         if (Physics.Raycast(transform.position, directionToPlayer, out RaycastHit hit, 50, ~ignore))
         {
@@ -127,8 +131,9 @@ public class HeavyRangedEnemy : EnemyBase
 
     public IEnumerator RapidFireAttack()
     {
-        Vector3 dirToPlayer = (player.transform.position + new Vector3(0, 0.2f, 0)) - projectileSpawnLeft.position;
-        Vector3 dirToPlayer2 = (player.transform.position + new Vector3(0, 0.2f, 0)) - projectileSpawnRight.position;
+        Vector3 dirToPlayer = raycastTarget.position /*+ new Vector3(0, 0.2f, 0)) */- projectileSpawnLeft.position;
+        Vector3 dirToPlayer2 = raycastTarget.position /*+ new Vector3(0, 0.2f, 0))*/ - projectileSpawnRight.position;
+        yield return new WaitForSeconds(0.01f);
         GameObject proj = Instantiate(projectile, projectileSpawnLeft.position, Quaternion.LookRotation(dirToPlayer));
         proj.GetComponent<EnemyProjectile>().damage = projectileDamage;
         yield return new WaitForSeconds(0.1f);

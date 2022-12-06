@@ -13,6 +13,7 @@ public class PlayerSlide : MonoBehaviour
     private Rigidbody rb;
     private CapsuleCollider capsuleCollider;
     public Transform orientation;
+    public Transform enemyRaycastTarget;
 
     [Header("Slide Parameters")]
     public float slideForce;
@@ -87,6 +88,7 @@ public class PlayerSlide : MonoBehaviour
     {
         capsuleCollider.center = slidingCenter;
         capsuleCollider.height = colliderSlidingHeight;
+        enemyRaycastTarget.localPosition = slidingCenter;
         StopAllCoroutines();
         StartCoroutine(MoveCamera(playerCam, slidingHeight));
 
@@ -119,6 +121,8 @@ public class PlayerSlide : MonoBehaviour
         pm.isSliding = false;
         capsuleCollider.center = normalSlidingCenter;
         capsuleCollider.height = normalColliderSlidingHeight;
+        enemyRaycastTarget.localPosition = normalSlidingCenter;
+
     }
 
     public void CancelSlide()

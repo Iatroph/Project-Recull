@@ -157,6 +157,7 @@ public class PlayerWeaponManager : MonoBehaviour
                 }
             }
             currentWeapon = weaponArray[currentWeaponIndex];
+            currentWeapon.IsSwitchingWeapons();
             currentWeapon.ToggleMesh();
             currentWeapon.PlaySwitchAnimation();
 

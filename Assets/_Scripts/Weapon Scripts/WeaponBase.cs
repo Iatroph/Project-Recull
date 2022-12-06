@@ -155,6 +155,16 @@ public class WeaponBase : MonoBehaviour
         isSwitchingWeapons = !isSwitchingWeapons;
     }
 
+    public virtual void IsSwitchingWeapons()
+    {
+        isSwitchingWeapons = true;
+    }
+
+    public virtual void DoneSwitchingWeapons()
+    {
+        isSwitchingWeapons = false;
+    }
+
     public virtual void PlaySwitchAnimation(){}
 
     public virtual void FireRateTimer()

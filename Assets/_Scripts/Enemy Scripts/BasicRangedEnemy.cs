@@ -6,6 +6,8 @@ using UnityEngine.AI;
 public class BasicRangedEnemy : EnemyBase
 {
     GameObject player;
+    Transform raycastTarget;
+
     private float distanceFromPlayer;
     private Vector3 directionToPlayer;
 
@@ -50,6 +52,7 @@ public class BasicRangedEnemy : EnemyBase
         base.Awake();
         navAgent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
+        raycastTarget = GameObject.FindGameObjectWithTag("Raycast Target").transform;
         navAgent.speed = pursueSpeed;
         attackInterval = initialAttackInterval;
         attackTimer = attackInterval;
@@ -59,7 +62,7 @@ public class BasicRangedEnemy : EnemyBase
     void Update()
     {
         distanceFromPlayer = Vector3.Distance(player.transform.position, transform.position);
-        directionToPlayer = player.transform.position - transform.position;
+        directionToPlayer = raycastTarget.position - transform.position;
 
         if(Physics.Raycast(transform.position, directionToPlayer, out RaycastHit hit, 50, ~ignore))
         {
