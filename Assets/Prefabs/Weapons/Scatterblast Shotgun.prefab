@@ -27,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3985033710598450821}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.7500005, y: 0.443, z: 1.802}
   m_LocalScale: {x: 0.13, y: 0.13, z: 0.13}
   m_ConstrainProportionsScale: 1
@@ -131,15 +131,18 @@ MonoBehaviour:
   bulletTracer: {fileID: 4395187950818668945, guid: 92eb76b9793a6b74697a16d457f99a82, type: 3}
   Meshes:
   - {fileID: 3192299502455410512}
-  damage: 6
+  damage: 7
   fireRate: 0.8
   spread: 0.01
   magCapacity: 4
+  shootSound: {fileID: 11400000, guid: a31f4489bc304ff47af7bec218302780, type: 2}
+  hitSound: {fileID: 11400000, guid: d4761e3a5eb085649883069e5f841972, type: 2}
+  switchSound: {fileID: 11400000, guid: 8052e8eb480b0ea43a18532657ccab0b, type: 2}
   recallCooldown: 6
   infiniteAmmo: 0
   ignore:
     serializedVersion: 2
-    m_Bits: 52480
+    m_Bits: 64768
   firedProjectiles: []
   buckShot: 8
   muzzleFlashParticle: {fileID: 433813047244650698, guid: 2b30b6bbc82831548890fbae1c6c6ada, type: 3}

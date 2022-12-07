@@ -194,6 +194,8 @@ MonoBehaviour:
   door: {fileID: 1117808927710810480}
   upLength: 4.1
   slideDuration: 0.25
+  openSound: {fileID: 11400000, guid: 09570d513fda6e048b681f9614ca58f8, type: 2}
+  closeSound: {fileID: 11400000, guid: b85e1a33c05e8e04eabd40bce84b4d33, type: 2}
   unlockedMat: {fileID: 2100000, guid: dfd307d264adf524b85b5402320414d8, type: 2}
   lockedMat: {fileID: 2100000, guid: 77eb1a144f494fd4d8f12fb9a98e62c2, type: 2}
 --- !u!54 &1117808927917037933

@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 1991371789815052632}
   - component: {fileID: 1991371789815052630}
   - component: {fileID: 1991371789815052635}
+  - component: {fileID: 8740489024696662659}
   m_Layer: 11
   m_Name: Basic Melee Enemy
   m_TagString: Enemy
@@ -208,6 +209,7 @@ Transform:
   - {fileID: 493106056362460859}
   - {fileID: 2249174513744659348}
   - {fileID: 2249174514588491053}
+  - {fileID: 2954558998678594347}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -242,13 +244,14 @@ MonoBehaviour:
   usesNavMeshAgent: 1
   maxHealth: 200
   healthPickup: {fileID: 1569438616300886935, guid: 4d8df9b511b040f46a93e57cb035a0f8, type: 3}
+  deathSound: {fileID: 11400000, guid: 3f89e68461e2ae54da645e6c87443a39, type: 2}
   healthText: {fileID: 0}
   isDisabled: 0
   deathExplosionParticle: {fileID: 852106766628859982, guid: 0c537e302ec0f1b488fddb51ea38b168, type: 3}
-  meleeDamage: 15
+  meleeDamage: 10
   tickDamage: 1
   tickTime: 0.1
-  pursueSpeed: 12
+  pursueSpeed: 11
   ignore:
     serializedVersion: 2
     m_Bits: 0
@@ -274,6 +277,22 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!54 &8740489024696662659
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991371789815052614}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1991371790309710151
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,6 +306,7 @@ GameObject:
   - component: {fileID: 1991371790309710168}
   - component: {fileID: 1991371790309710169}
   - component: {fileID: 1991371790309710170}
+  - component: {fileID: 175249172107627353}
   m_Layer: 9
   m_Name: Head
   m_TagString: Untagged
@@ -387,6 +407,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageMultiplier: 2
   isWeakPoint: 1
+--- !u!54 &175249172107627353
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991371790309710151}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1991371790719335104
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,6 +533,7 @@ GameObject:
   - component: {fileID: 1991371791276272752}
   - component: {fileID: 1991371791276272753}
   - component: {fileID: 1991371791276272754}
+  - component: {fileID: 2900638951317006248}
   m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
@@ -597,6 +634,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageMultiplier: 1
   isWeakPoint: 0
+--- !u!54 &2900638951317006248
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991371791276272767}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2249174513521008792
 GameObject:
   m_ObjectHideFlags: 0
@@ -970,6 +1023,52 @@ BoxCollider:
   m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &3837283456111691917
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2954558998678594347}
+  - component: {fileID: 312460565989614291}
+  m_Layer: 12
+  m_Name: Sawblade Hitbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2954558998678594347
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3837283456111691917}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 1.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1991371789815052633}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &312460565989614291
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3837283456111691917}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2.5
+  m_Direction: 0
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1991371789509712601
 PrefabInstance:

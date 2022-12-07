@@ -153,6 +153,7 @@ MonoBehaviour:
   returnSpeed: 30
   explosionParticle: {fileID: 6173937414819481155, guid: d5da8944b3053424ca57c9076c3c2e74, type: 3}
   explosionImpactParticle: {fileID: 9057438573920839828, guid: 3782f688f54df994aaff8d05126e32eb, type: 3}
+  explosionSound: {fileID: 11400000, guid: c7627f790565e56438ae283fee3ab7d9, type: 2}
   explosionRadius: 5
   explosionDamage: 20
   whatIsEnemy:

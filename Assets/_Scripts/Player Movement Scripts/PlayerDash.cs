@@ -24,6 +24,9 @@ public class PlayerDash : MonoBehaviour
     private Rigidbody rb;
     private PlayerMovement pm;
 
+    [Header("Sound Effects")]
+    public SoundFX dashSound;
+
     [Header("Dash Parameters")]
     public float dashForce;
     public float dashUpwardForce;
@@ -130,6 +133,7 @@ public class PlayerDash : MonoBehaviour
 
     private void Dash()
     {
+        MyAudioManager.instance.PlaySoundOneShot(dashSound);
         dashCount--;
         //slidr.value--;
         currentSliderValue--;

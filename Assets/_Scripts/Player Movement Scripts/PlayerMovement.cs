@@ -87,10 +87,6 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode slideKey = KeyCode.LeftControl;
     public KeyCode dashKey = KeyCode.LeftShift;
 
-    [Header("Sound Effects")]
-    public AudioClip jumpSound;
-    public AudioClip doubleJump;
-
     [Header("Other Parameters")]
     public float gravity;
     public float playerHeight = 2;

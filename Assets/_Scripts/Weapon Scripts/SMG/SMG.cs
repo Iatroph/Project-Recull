@@ -34,6 +34,7 @@ public class SMG : WeaponBase
 
     public override void Shoot()
     {
+        MyAudioManager.instance.PlaySoundOneShot(shootSound);
         canShoot = false;
         shootTimer = fireRate;
 
@@ -73,6 +74,10 @@ public class SMG : WeaponBase
                 {
                     GameObject spark = Instantiate(impactSparkParticle, projectileSpawnPoint, Quaternion.identity);
                 }
+                MyAudioManager.instance.PlaySoundOneShot(hitSound);
+                //MyAudioManager.instance.PlaySoundAtPoint(hitSound, hit.point);
+
+
             }
 
             GameObject impact = Instantiate(bulletImpactParticle, projectileSpawnPoint, Quaternion.LookRotation(hit.normal));
@@ -105,6 +110,7 @@ public class SMG : WeaponBase
 
     public override void PlaySwitchAnimation()
     {
+        base.PlaySwitchAnimation();
         if (anim != null)
         {
             anim.SetTrigger("Switching");

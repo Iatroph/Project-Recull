@@ -16,6 +16,10 @@ public class SlidingDoor : MonoBehaviour
     public float upLength;
     public float slideDuration;
 
+    [Header("Sound Effects")]
+    public SoundFX openSound;
+    public SoundFX closeSound;
+
     [Header("Material References")]
     public Material unlockedMat;
     public Material lockedMat;
@@ -59,6 +63,7 @@ public class SlidingDoor : MonoBehaviour
         if(isAutomaticDoor && other.gameObject.CompareTag("Player") && !isLocked)
         {
             SlideUp();
+            MyAudioManager.instance.PlaySoundAtPoint(openSound, transform.position);
         }
     }
 
@@ -67,6 +72,8 @@ public class SlidingDoor : MonoBehaviour
         if (isAutomaticDoor && other.gameObject.CompareTag("Player") && !isLocked)
         {
             SlideDown();
+            MyAudioManager.instance.PlaySoundAtPoint(closeSound, transform.position);
+
         }
     }
 

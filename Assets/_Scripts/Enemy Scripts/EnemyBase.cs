@@ -19,6 +19,7 @@ public class EnemyBase : MonoBehaviour
 
     [Header("References")]
     public GameObject healthPickup;
+    public SoundFX deathSound;
 
     [Header("Debugging")]
     public TMP_Text healthText;
@@ -74,6 +75,7 @@ public class EnemyBase : MonoBehaviour
         {
             GameManager.instance.IncreaseKillCount();
         }
+        MyAudioManager.instance.PlaySoundAtPoint(deathSound, transform.position);
         Destroy(gameObject);
     }
 

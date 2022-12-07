@@ -6,6 +6,9 @@ public class HealthPickup : MonoBehaviour
 {
     public float healAmount;
     private GameObject Player;
+    public SoundFX healSound;
+
+    private PlayerStats ps;
 
     private void Awake()
     {
@@ -16,20 +19,14 @@ public class HealthPickup : MonoBehaviour
     void Start()
     {
         Physics.IgnoreCollision(GetComponent<Collider>(), Player.GetComponent<Collider>());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        ps = Player.GetComponent<PlayerStats>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-
-        //Debug.Log("HELLO!!!???");
-        if (other.gameObject.CompareTag("Bullet Collection"))
+        if (other.gameObject.CompareTag("Bullet Collection") && ps.currentHealth < ps.maxHealth)
         {
+            MyAudioManager.instance.PlaySoundOneShot(healSound);
             Player.GetComponent<PlayerStats>().Heal(healAmount);
             Destroy(gameObject);
         }

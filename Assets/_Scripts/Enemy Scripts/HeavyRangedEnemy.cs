@@ -25,6 +25,9 @@ public class HeavyRangedEnemy : EnemyBase
     [Header("References")]
     public GameObject projectile;
 
+    [Header("Sound Effects")]
+    public SoundFX shootSound;
+
     [Header("Particle Effects")]
     public GameObject deathExplosionParticle;
 
@@ -134,16 +137,24 @@ public class HeavyRangedEnemy : EnemyBase
         Vector3 dirToPlayer = raycastTarget.position /*+ new Vector3(0, 0.2f, 0)) */- projectileSpawnLeft.position;
         Vector3 dirToPlayer2 = raycastTarget.position /*+ new Vector3(0, 0.2f, 0))*/ - projectileSpawnRight.position;
         yield return new WaitForSeconds(0.01f);
+
         GameObject proj = Instantiate(projectile, projectileSpawnLeft.position, Quaternion.LookRotation(dirToPlayer));
+        MyAudioManager.instance.PlaySoundAtPoint(shootSound, projectileSpawnLeft.position);
         proj.GetComponent<EnemyProjectile>().damage = projectileDamage;
         yield return new WaitForSeconds(0.1f);
+
         GameObject proj2 = Instantiate(projectile, projectileSpawnRight.position, Quaternion.LookRotation(dirToPlayer2));
+        MyAudioManager.instance.PlaySoundAtPoint(shootSound, projectileSpawnRight.position);
         proj2.GetComponent<EnemyProjectile>().damage = projectileDamage;
         yield return new WaitForSeconds(0.1f);
+
         GameObject proj3 = Instantiate(projectile, projectileSpawnLeft.position, Quaternion.LookRotation(dirToPlayer));
+        MyAudioManager.instance.PlaySoundAtPoint(shootSound, projectileSpawnLeft.position);
         proj3.GetComponent<EnemyProjectile>().damage = projectileDamage;
         yield return new WaitForSeconds(0.1f);
+
         GameObject proj4 = Instantiate(projectile, projectileSpawnRight.position, Quaternion.LookRotation(dirToPlayer2));
+        MyAudioManager.instance.PlaySoundAtPoint(shootSound, projectileSpawnRight.position);
         proj4.GetComponent<EnemyProjectile>().damage = projectileDamage;
         isAttacking = false;
         yield return null;

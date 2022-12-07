@@ -10,6 +10,9 @@ public class ShotgunProjectile : ProjectileBase
     public GameObject explosionParticle;
     public GameObject explosionImpactParticle;
 
+    [Header("Sound Effects")]
+    public SoundFX explosionSound;
+
     [Header("Recall Parameters")]
     public float explosionRadius;
     public float explosionDamage;
@@ -36,7 +39,7 @@ public class ShotgunProjectile : ProjectileBase
         GameObject explosion = Instantiate(explosionParticle, transform.position, Quaternion.identity);
         tr.startColor = recallTrailColor;
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, explosionRadius, whatIsEnemy);
-        
+        MyAudioManager.instance.PlaySoundAtPoint(explosionSound, transform.position);
         foreach (Collider c in hitEnemies)
         {
             //c.transform.GetComponent<IDamageable>().TakeDamage(explosionDamage);

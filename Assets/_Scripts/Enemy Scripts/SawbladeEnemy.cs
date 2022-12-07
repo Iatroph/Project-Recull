@@ -48,7 +48,29 @@ public class SawbladeEnemy : EnemyBase
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Player"))
+    //    {
+    //        collision.gameObject.GetComponent<PlayerStats>().TakeDamage(meleeDamage);
+    //    }
+    //}
+
+    //private void OnCollisionStay(Collision collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Player"))
+    //    {
+    //        tickTimer -= Time.deltaTime;
+    //        if (tickTimer <= 0)
+    //        {
+    //            tickTimer = tickTime;
+    //            collision.gameObject.GetComponent<PlayerStats>().TakeDamage(tickDamage);
+
+    //        }
+    //    }
+    //}
+
+    private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
@@ -56,7 +78,7 @@ public class SawbladeEnemy : EnemyBase
         }
     }
 
-    private void OnCollisionStay(Collision collision)
+    private void OnTriggerStay(Collider collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {

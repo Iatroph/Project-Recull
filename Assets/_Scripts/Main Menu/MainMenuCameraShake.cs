@@ -14,6 +14,8 @@ public class MainMenuCameraShake : MonoBehaviour
 	public float shakeInterval;
 	private float shakeTimer;
 
+	public SoundFX shakeSound;
+
 	void Awake()
 	{
 		shakeTimer = shakeInterval;
@@ -28,7 +30,9 @@ public class MainMenuCameraShake : MonoBehaviour
 		if(shakeTimer <= 0)
         {
 			CameraShaker.Instance.ShakeOnce(magnitude, roughness, fadeInTime, fadeOutTime);
+			CameraShaker.Instance.ShakeOnce(magnitude, roughness, fadeInTime, fadeOutTime);
 			shakeTimer = shakeInterval;
+			MyAudioManager.instance.PlaySoundOneShot(shakeSound);
         }
 
 	}

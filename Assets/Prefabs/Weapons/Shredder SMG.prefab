@@ -131,15 +131,18 @@ MonoBehaviour:
   bulletTracer: {fileID: 4395187950818668945, guid: 38ab0605f24f5b340bf52aa405695a07, type: 3}
   Meshes:
   - {fileID: 6667128024650595176}
-  damage: 5
+  damage: 7
   fireRate: 0.1
   spread: 0.015
   magCapacity: 30
-  recallCooldown: 6
+  shootSound: {fileID: 11400000, guid: 1e6465788e99eed469dee53a6620c58d, type: 2}
+  hitSound: {fileID: 11400000, guid: 7e96a7cc03352dc4c944451ddc8c589d, type: 2}
+  switchSound: {fileID: 11400000, guid: 8052e8eb480b0ea43a18532657ccab0b, type: 2}
+  recallCooldown: 5
   infiniteAmmo: 0
   ignore:
     serializedVersion: 2
-    m_Bits: 52480
+    m_Bits: 64768
   firedProjectiles: []
   muzzleFlashParticle: {fileID: 8296147123400778532, guid: dfc6c1ebe9853bf4db017622a0f7af7a, type: 3}
   muzzleFlashSpawn: {fileID: 5424568419575571769}

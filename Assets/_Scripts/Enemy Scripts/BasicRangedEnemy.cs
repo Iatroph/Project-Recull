@@ -26,6 +26,9 @@ public class BasicRangedEnemy : EnemyBase
     [Header("References")]
     public GameObject projectile;
 
+    [Header("Sound Effects")]
+    public SoundFX shootSound;
+
     [Header("Particle Effects")]
     public GameObject deathExplosionParticle;
 
@@ -113,6 +116,7 @@ public class BasicRangedEnemy : EnemyBase
         attackTimer -= Time.deltaTime;
         if (attackTimer <= 0)
         {
+            MyAudioManager.instance.PlaySoundAtPoint(shootSound, projectileSpawnRight.position);
             Vector3 dirToPlayer = (player.transform.position + new Vector3(0, 0.2f, 0)) - projectileSpawnRight.position;
             GameObject proj = Instantiate(projectile, projectileSpawnRight.position, Quaternion.LookRotation(dirToPlayer));
             proj.GetComponent<EnemyProjectile>().damage = projectileDamage;

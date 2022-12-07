@@ -16,6 +16,10 @@ public class RevolverProjectile : ProjectileBase
     public GameObject muzzleFlashParticle;
     public Transform muzzleFlashSpawn;
 
+    [Header("Sound Effects")]
+    public SoundFX shootSound;
+    public SoundFX impactSound;
+
     [Header("Recall Parameters")]
     public float upForce;
     public float recallRange;
@@ -160,6 +164,10 @@ public class RevolverProjectile : ProjectileBase
 
                 if (hit.transform.gameObject.GetComponent<Hurtbox>() != null)
                 {
+                    MyAudioManager.instance.PlaySoundAtPoint(shootSound, transform.position);
+                    MyAudioManager.instance.PlaySoundAtPoint(impactSound, hit.point);
+
+
                     GameObject MuzzleFlash = Instantiate(muzzleFlashParticle, muzzleFlashSpawn.position, Quaternion.identity);
 
                     hit.transform.gameObject.GetComponent<Hurtbox>().AdjustDamage(recallDamage, true);

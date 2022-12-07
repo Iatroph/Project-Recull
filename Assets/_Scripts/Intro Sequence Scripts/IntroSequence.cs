@@ -26,8 +26,10 @@ public class IntroSequence : MonoBehaviour
 
     bool ReboundPause = false;
 
-    private float waitTime = 1f;
+    private float waitTime = 1.5f;
     private float timer;
+
+    public SoundFX lightOn;
 
     private void Awake()
     {
@@ -88,6 +90,7 @@ public class IntroSequence : MonoBehaviour
         {
             g.SetActive(true);
         }
+        MyAudioManager.instance.PlaySoundAtPoint(lightOn, transform.position);
         playerLight.SetActive(true);
         playerHUD.SetActive(true);
         yield return new WaitForSeconds(2);
@@ -103,7 +106,7 @@ public class IntroSequence : MonoBehaviour
         Time.timeScale = 0;
         PressToRecall.gameObject.SetActive(true);
         introCanvas.SetActive(true);
-        StartCoroutine(RecallTextFlicker());
+        //StartCoroutine(RecallTextFlicker());
         yield return waitForKeyPress(KeyCode.R);
         PressToRecall.gameObject.SetActive(false);
         introCanvas.SetActive(false);

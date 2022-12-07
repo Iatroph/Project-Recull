@@ -182,6 +182,7 @@ MonoBehaviour:
   usesNavMeshAgent: 1
   maxHealth: 200
   healthPickup: {fileID: 0}
+  deathSound: {fileID: 0}
   healthText: {fileID: 358309557}
   isDisabled: 1
   canGroundCheck: 1
@@ -266,10 +267,6 @@ PrefabInstance:
     - target: {fileID: 956569197516858818, guid: a73d7a86a8e6d6b4d8aa7cf19dd42628, type: 3}
       propertyPath: isDisabled
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 956569197516858818, guid: a73d7a86a8e6d6b4d8aa7cf19dd42628, type: 3}
-      propertyPath: ignore.m_Bits
-      value: 48640
       objectReference: {fileID: 0}
     - target: {fileID: 956569197516858844, guid: a73d7a86a8e6d6b4d8aa7cf19dd42628, type: 3}
       propertyPath: m_RootOrder
@@ -1353,6 +1350,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6331413355017376875, guid: feba90fcd41f4184285228ec31a7380a, type: 3}
+      propertyPath: globalRecallTime
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6331413355017376875, guid: feba90fcd41f4184285228ec31a7380a, type: 3}
       propertyPath: weaponArray.Array.data[0]
       value: 
       objectReference: {fileID: 2007278345}
@@ -2076,10 +2077,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shredder SMG
       objectReference: {fileID: 0}
-    - target: {fileID: 5153976068838136509, guid: 934448067d787194aaf61c3f0ef773ec, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5534160064409387015, guid: 934448067d787194aaf61c3f0ef773ec, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2196,156 +2193,73 @@ PrefabInstance:
       propertyPath: isDisabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4496769082806000371, guid: f23d79c93e3985f40b8cfaf55f5fa180, type: 3}
+      propertyPath: ignore.m_Bits
+      value: 48640
+      objectReference: {fileID: 0}
     - target: {fileID: 4496769082806000374, guid: f23d79c93e3985f40b8cfaf55f5fa180, type: 3}
       propertyPath: m_Name
       value: Drone
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f23d79c93e3985f40b8cfaf55f5fa180, type: 3}
---- !u!1 &1890952183
-GameObject:
+--- !u!1001 &1911183444
+PrefabInstance:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1890952185}
-  - component: {fileID: 1890952184}
-  - component: {fileID: 1890952186}
-  m_Layer: 0
-  m_Name: AudioManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1890952184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1890952183}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f267fc6b7fc4a249abe716fe3a34b1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  masterVolume: 0.5
-  sfxVolume: 0.75
-  musicVolume: 1
---- !u!4 &1890952185
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1890952183}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &1890952186
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1890952183}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8940097229147359368, guid: 5bbc94cdf89a6a445a4f6e939509afad, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8940097229147359368, guid: 5bbc94cdf89a6a445a4f6e939509afad, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8940097229147359368, guid: 5bbc94cdf89a6a445a4f6e939509afad, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8940097229147359368, guid: 5bbc94cdf89a6a445a4f6e939509afad, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8940097229147359368, guid: 5bbc94cdf89a6a445a4f6e939509afad, type: 3}
+      propertyPath: m_LocalRotation.w
       value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8940097229147359368, guid: 5bbc94cdf89a6a445a4f6e939509afad, type: 3}
+      propertyPath: m_LocalRotation.x
       value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8940097229147359368, guid: 5bbc94cdf89a6a445a4f6e939509afad, type: 3}
+      propertyPath: m_LocalRotation.y
       value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8940097229147359368, guid: 5bbc94cdf89a6a445a4f6e939509afad, type: 3}
+      propertyPath: m_LocalRotation.z
       value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8940097229147359368, guid: 5bbc94cdf89a6a445a4f6e939509afad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8940097229147359368, guid: 5bbc94cdf89a6a445a4f6e939509afad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8940097229147359368, guid: 5bbc94cdf89a6a445a4f6e939509afad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8940097229147359371, guid: 5bbc94cdf89a6a445a4f6e939509afad, type: 3}
+      propertyPath: m_Name
+      value: My Audio Manager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5bbc94cdf89a6a445a4f6e939509afad, type: 3}
 --- !u!1 &2004718948
 GameObject:
   m_ObjectHideFlags: 0
@@ -2530,10 +2444,6 @@ PrefabInstance:
     - target: {fileID: 3059462286844777139, guid: 43d7cfd689ea7144fbec8dd262dbc337, type: 3}
       propertyPath: m_Name
       value: Rebound Revolver
-      objectReference: {fileID: 0}
-    - target: {fileID: 3059462286844777139, guid: 43d7cfd689ea7144fbec8dd262dbc337, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43d7cfd689ea7144fbec8dd262dbc337, type: 3}

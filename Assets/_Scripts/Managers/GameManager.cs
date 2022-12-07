@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour
 
         if (isPlayerDead)
         {
-            if (Input.GetKeyDown(KeyCode.R) || Input.GetMouseButtonDown(0))
+            if (Input.GetKeyDown(KeyCode.R))
             {
                 SceneManager.LoadScene(currentLevelIndex);
             }

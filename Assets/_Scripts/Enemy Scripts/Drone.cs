@@ -7,6 +7,7 @@ public class Drone : EnemyBase
     GameObject player;
     private float distanceFromPlayer;
     private Vector3 directionToPlayer;
+    Transform raycastTarget;
 
     bool playerInRange;
 
@@ -14,10 +15,15 @@ public class Drone : EnemyBase
 
     float attackTimer;
 
+    bool canSeePlayer;
+
     private float attackInterval;
 
     [Header("References")]
     public GameObject projectile;
+
+    [Header("Sound Effects")]
+    public SoundFX shootSound;
 
     [Header("Particle Effects")]
     public GameObject deathExplosionParticle;
@@ -29,10 +35,14 @@ public class Drone : EnemyBase
     public float baseAttackInterval;
     public float attackIntervalModifier;
 
+    [Header("Layermasks")]
+    public LayerMask ignore;
+
     new void Awake()
     {
         base.Awake();
         player = GameObject.FindGameObjectWithTag("Player");
+        raycastTarget = GameObject.FindGameObjectWithTag("Raycast Target").transform;
         attackInterval = initialAttackInterval;
         attackTimer = attackInterval;
     }
@@ -47,11 +57,27 @@ public class Drone : EnemyBase
     void Update()
     {
         distanceFromPlayer = Vector3.Distance(player.transform.position, transform.position);
-        directionToPlayer = player.transform.position - transform.position;
+        directionToPlayer = raycastTarget.position - transform.position;
+
+        if (Physics.Raycast(transform.position, directionToPlayer, out RaycastHit hit, 200, ~ignore))
+        {
+            if (hit.transform.CompareTag("Player"))
+            {
+                canSeePlayer = true;
+            }
+            else
+            {
+                canSeePlayer = false;
+            }
+        }
 
         if (!isDisabled)
         {
-            AttackingState();
+            if (canSeePlayer)
+            {
+                AttackingState();
+            }
+
             RotateTowardPlayer();
         }
     }
@@ -61,6 +87,7 @@ public class Drone : EnemyBase
         attackTimer -= Time.deltaTime;
         if (attackTimer <= 0)
         {
+            MyAudioManager.instance.PlaySoundAtPoint(shootSound, projectileSpawn.position);
             isAttacking = true;
             GameObject proj = Instantiate(projectile, projectileSpawn.position, Quaternion.LookRotation(directionToPlayer));
             proj.GetComponent<EnemyProjectile>().damage = projectileDamage;

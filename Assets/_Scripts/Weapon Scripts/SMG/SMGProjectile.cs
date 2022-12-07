@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SMGProjectile : ProjectileBase
 {
+    private AudioSource source;
     private float tickTimer;
     private Collider collidr;
     private TrailRenderer tr;
@@ -29,6 +30,7 @@ public class SMGProjectile : ProjectileBase
 
     new void Awake()
     {
+        source = GetComponent<AudioSource>();
         base.Awake();
         tickTimer = tickTime;
         collidr = GetComponent<Collider>();
@@ -52,6 +54,11 @@ public class SMGProjectile : ProjectileBase
 
         if (isReturning)
         {
+            if (!source.isPlaying)
+            {
+                source.Play();
+            }
+
             bulletHead.GetComponent<QuickOutline>().enabled = false;
             casing.GetComponent<QuickOutline>().enabled = false;
             sawBlade.SetActive(true);

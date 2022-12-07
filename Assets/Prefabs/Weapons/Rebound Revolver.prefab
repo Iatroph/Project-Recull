@@ -148,6 +148,9 @@ MonoBehaviour:
   fireRate: 0.5
   spread: 0
   magCapacity: 8
+  shootSound: {fileID: 11400000, guid: 36897d3a72f7a7d49b9db5091c064a1e, type: 2}
+  hitSound: {fileID: 11400000, guid: 9ddd082d586723647ac7db123c32e3c2, type: 2}
+  switchSound: {fileID: 11400000, guid: 8052e8eb480b0ea43a18532657ccab0b, type: 2}
   recallCooldown: 5
   infiniteAmmo: 0
   ignore:

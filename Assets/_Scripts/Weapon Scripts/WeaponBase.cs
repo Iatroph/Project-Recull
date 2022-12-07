@@ -36,6 +36,11 @@ public class WeaponBase : MonoBehaviour
     public float spread;
     public float magCapacity;
 
+    [Header("Sound Effects")]
+    public SoundFX shootSound;
+    public SoundFX hitSound;
+    public SoundFX switchSound;
+
     [Header("Base Recall Parameters")]
     public float recallCooldown;
 
@@ -79,6 +84,7 @@ public class WeaponBase : MonoBehaviour
 
     public virtual void Shoot()
     {
+
         canShoot = false;
         shootTimer = fireRate;
 
@@ -165,7 +171,10 @@ public class WeaponBase : MonoBehaviour
         isSwitchingWeapons = false;
     }
 
-    public virtual void PlaySwitchAnimation(){}
+    public virtual void PlaySwitchAnimation()
+    {
+        MyAudioManager.instance.PlaySoundOneShot(switchSound);
+    }
 
     public virtual void FireRateTimer()
     {

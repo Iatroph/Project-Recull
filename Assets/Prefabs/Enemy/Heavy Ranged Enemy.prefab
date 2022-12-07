@@ -777,9 +777,11 @@ MonoBehaviour:
   usesNavMeshAgent: 1
   maxHealth: 450
   healthPickup: {fileID: 1569438616300886935, guid: 4d8df9b511b040f46a93e57cb035a0f8, type: 3}
+  deathSound: {fileID: 11400000, guid: 3f89e68461e2ae54da645e6c87443a39, type: 2}
   healthText: {fileID: 0}
   isDisabled: 0
   projectile: {fileID: 2181093712619701138, guid: dcf0ccd25d30101499f41ca043956e7e, type: 3}
+  shootSound: {fileID: 11400000, guid: ec154675e4710a946a79cb276a0c2a7d, type: 2}
   deathExplosionParticle: {fileID: 852106766628859982, guid: 0c537e302ec0f1b488fddb51ea38b168, type: 3}
   projectileDamage: 20
   projectileSpawnRight: {fileID: 956569195807698111}

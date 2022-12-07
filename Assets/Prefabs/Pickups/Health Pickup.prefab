@@ -148,3 +148,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healAmount: 10
+  healSound: {fileID: 11400000, guid: cbedf8723afe62446ab6cab30d9af72c, type: 2}

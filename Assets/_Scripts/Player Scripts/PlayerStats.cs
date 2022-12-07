@@ -16,6 +16,9 @@ public class PlayerStats : MonoBehaviour
     public float maxHealth;
     public float iFramesTime;
 
+    [Header("Sound Effects")]
+    public SoundFX hurtSound;
+
     [Header("UI")]
     public TMP_Text healthText;
     public Slider healthSlider;
@@ -37,13 +40,13 @@ public class PlayerStats : MonoBehaviour
     {
         //if (Input.GetKeyDown(KeyCode.F))
         //{
-        //    TakeDamage(100);
+        //    TakeDamage(20);
         //}
 
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            Heal(10);
-        }
+        //if (Input.GetKeyDown(KeyCode.H))
+        //{
+        //    Heal(10);
+        //}
 
         IFrameTimer();
     }
@@ -65,6 +68,7 @@ public class PlayerStats : MonoBehaviour
     {
         if (currentHealth > 0 && !iFramesOn && !godMode)
         {
+            MyAudioManager.instance.PlaySoundOneShot(hurtSound);
             iFramesOn = true;
             currentHealth -= damage;
             uiEffects.RedFlash();

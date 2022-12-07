@@ -342,6 +342,8 @@ MonoBehaviour:
   impactSparkParticle: {fileID: 9057438573920839828, guid: a90ce043a3703584b9252659dc340f82, type: 3}
   muzzleFlashParticle: {fileID: 433813047244650698, guid: 533389b8fe79d4047a9a3218fe043add, type: 3}
   muzzleFlashSpawn: {fileID: 1785653811491381193}
+  shootSound: {fileID: 11400000, guid: 36897d3a72f7a7d49b9db5091c064a1e, type: 2}
+  impactSound: {fileID: 11400000, guid: 9ddd082d586723647ac7db123c32e3c2, type: 2}
   upForce: 8
   recallRange: 30
   recallDamage: 30
